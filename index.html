@@ -1,0 +1,820 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Master Calendar · June 2026</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@300;400;500;600&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg: #0f1117;
+    --bg2: #171b26;
+    --bg3: #1e2332;
+    --bg4: #252b3b;
+    --border: rgba(255,255,255,0.07);
+    --border2: rgba(255,255,255,0.13);
+    --text: #e8eaf2;
+    --text2: #9097b0;
+    --text3: #5a6180;
+    --blue: #4d8ef0;
+    --blue-dim: rgba(77,142,240,0.15);
+    --green: #3ecf8e;
+    --green-dim: rgba(62,207,142,0.15);
+    --amber: #f5a623;
+    --amber-dim: rgba(245,166,35,0.15);
+    --purple: #a78bfa;
+    --purple-dim: rgba(167,139,250,0.15);
+    --coral: #f97066;
+    --coral-dim: rgba(249,112,102,0.15);
+    --teal: #2dd4bf;
+    --radius: 10px;
+    --radius-sm: 6px;
+  }
+
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+
+  body {
+    font-family: 'DM Sans', sans-serif;
+    background: var(--bg);
+    color: var(--text);
+    min-height: 100vh;
+    overflow-x: hidden;
+  }
+
+  /* ── TOP HEADER ── */
+  .top-bar {
+    background: var(--bg2);
+    border-bottom: 1px solid var(--border);
+    padding: 14px 28px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    position: sticky;
+    top: 0;
+    z-index: 100;
+  }
+  .top-bar .logo {
+    font-family: 'DM Mono', monospace;
+    font-size: 13px;
+    color: var(--text2);
+    letter-spacing: .08em;
+  }
+  .top-bar .logo span { color: var(--blue); }
+  .month-nav {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+  }
+  .month-nav h1 {
+    font-size: 16px;
+    font-weight: 500;
+    color: var(--text);
+    min-width: 180px;
+    text-align: center;
+  }
+  .nav-btn {
+    background: var(--bg3);
+    border: 1px solid var(--border2);
+    color: var(--text2);
+    width: 32px;
+    height: 32px;
+    border-radius: var(--radius-sm);
+    cursor: pointer;
+    font-size: 16px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all .15s;
+  }
+  .nav-btn:hover { background: var(--bg4); color: var(--text); border-color: var(--border2); }
+  .today-btn {
+    background: var(--blue-dim);
+    border: 1px solid rgba(77,142,240,0.3);
+    color: var(--blue);
+    padding: 6px 14px;
+    border-radius: var(--radius-sm);
+    cursor: pointer;
+    font-size: 12px;
+    font-family: 'DM Mono', monospace;
+    letter-spacing: .05em;
+    transition: all .15s;
+  }
+  .today-btn:hover { background: rgba(77,142,240,0.25); }
+
+  /* ── LAYOUT ── */
+  .page {
+    display: grid;
+    grid-template-columns: 1fr 340px;
+    gap: 0;
+    min-height: calc(100vh - 57px);
+  }
+  .main { padding: 24px 28px; overflow-y: auto; }
+  .sidebar {
+    background: var(--bg2);
+    border-left: 1px solid var(--border);
+    padding: 20px;
+    overflow-y: auto;
+    position: sticky;
+    top: 57px;
+    height: calc(100vh - 57px);
+  }
+
+  /* ── WEEK STATS ── */
+  .stats-row {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 10px;
+    margin-bottom: 24px;
+  }
+  .stat-box {
+    background: var(--bg2);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    padding: 14px 16px;
+  }
+  .stat-box .s-label {
+    font-size: 10px;
+    color: var(--text3);
+    text-transform: uppercase;
+    letter-spacing: .08em;
+    margin-bottom: 6px;
+    font-family: 'DM Mono', monospace;
+  }
+  .stat-box .s-val {
+    font-size: 22px;
+    font-weight: 600;
+    color: var(--text);
+    line-height: 1;
+  }
+  .stat-box .s-val span { font-size: 12px; font-weight: 400; color: var(--text3); }
+  .stat-bar { height: 3px; background: var(--bg4); border-radius: 2px; margin-top: 8px; overflow: hidden; }
+  .stat-bar-fill { height: 100%; border-radius: 2px; transition: width .4s cubic-bezier(.4,0,.2,1); }
+
+  /* ── ROADMAP STRIP ── */
+  .roadmap-strip {
+    margin-bottom: 20px;
+    background: var(--bg2);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    padding: 14px 16px;
+  }
+  .strip-title {
+    font-size: 10px;
+    font-family: 'DM Mono', monospace;
+    color: var(--text3);
+    text-transform: uppercase;
+    letter-spacing: .08em;
+    margin-bottom: 10px;
+  }
+  .strip-grid {
+    display: grid;
+    grid-template-columns: repeat(30, 1fr);
+    gap: 2px;
+    height: 20px;
+  }
+  .strip-cell {
+    border-radius: 2px;
+    height: 100%;
+    background: var(--bg4);
+    cursor: pointer;
+    position: relative;
+    transition: opacity .1s;
+  }
+  .strip-cell:hover { opacity: .8; }
+  .strip-labels {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 6px;
+    font-size: 10px;
+    color: var(--text3);
+    font-family: 'DM Mono', monospace;
+  }
+
+  /* ── CALENDAR GRID ── */
+  .cal-day-names {
+    display: grid;
+    grid-template-columns: repeat(7, 1fr);
+    gap: 6px;
+    margin-bottom: 6px;
+  }
+  .cal-day-names span {
+    text-align: center;
+    font-size: 10px;
+    font-family: 'DM Mono', monospace;
+    color: var(--text3);
+    text-transform: uppercase;
+    letter-spacing: .08em;
+    padding: 4px 0;
+  }
+  .cal-grid {
+    display: grid;
+    grid-template-columns: repeat(7, 1fr);
+    gap: 6px;
+  }
+  .day-cell {
+    background: var(--bg2);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    padding: 10px;
+    min-height: 150px;
+    cursor: pointer;
+    transition: border-color .15s, background .15s;
+    position: relative;
+    overflow: hidden;
+  }
+  .day-cell:hover { border-color: var(--border2); background: var(--bg3); }
+  .day-cell.empty { background: transparent; border-color: transparent; cursor: default; pointer-events: none; }
+  .day-cell.is-today { border-color: var(--blue) !important; }
+  .day-cell.is-today::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 0; right: 0;
+    height: 2px;
+    background: var(--blue);
+    border-radius: 10px 10px 0 0;
+  }
+  .day-cell.selected { border-color: var(--blue); background: rgba(77,142,240,0.06); }
+  .day-cell.is-past { opacity: .6; }
+  .d-num {
+    font-size: 13px;
+    font-weight: 600;
+    color: var(--text);
+    margin-bottom: 7px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+  .today-badge {
+    background: var(--blue);
+    color: #fff;
+    font-size: 9px;
+    font-family: 'DM Mono', monospace;
+    padding: 1px 5px;
+    border-radius: 3px;
+    letter-spacing: .04em;
+  }
+  .rm-pill {
+    font-size: 8px;
+    font-weight: 500;
+    padding: 2px 5px;
+    border-radius: 3px;
+    margin-bottom: 4px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+  .task-dots {
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+    margin: 4px 0;
+  }
+  .t-dot-row {
+    display: flex;
+    align-items: center;
+    gap: 4px;
+  }
+  .t-dot {
+    width: 7px;
+    height: 7px;
+    border-radius: 2px;
+    border: 1px solid rgba(255,255,255,0.12);
+    flex-shrink: 0;
+    transition: all .12s;
+  }
+  .t-dot.done { border-color: transparent; }
+  .t-dot-label {
+    font-size: 8px;
+    color: var(--text3);
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
+  .routine-icons {
+    display: flex;
+    gap: 2px;
+    flex-wrap: wrap;
+    margin-top: 5px;
+  }
+  .r-dot {
+    width: 14px;
+    height: 14px;
+    border-radius: 3px;
+    background: var(--bg4);
+    font-size: 9px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border: 1px solid transparent;
+    cursor: pointer;
+  }
+  .r-dot.done { background: var(--green-dim); border-color: rgba(62,207,142,.3); }
+  .pct-row {
+    margin-top: 6px;
+    display: flex;
+    align-items: center;
+    gap: 5px;
+  }
+  .pct-label { font-size: 8px; color: var(--text3); font-family: 'DM Mono', monospace; }
+  .pct-mini { flex: 1; height: 2px; background: var(--bg4); border-radius: 1px; overflow: hidden; }
+  .pct-mini-fill { height: 100%; border-radius: 1px; }
+
+  /* ── SIDEBAR ── */
+  .sidebar-empty {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    height: 100%;
+    color: var(--text3);
+    font-size: 13px;
+    text-align: center;
+    gap: 8px;
+  }
+  .sidebar-empty .big-icon { font-size: 32px; opacity: .4; }
+  .sb-day-head {
+    display: flex;
+    align-items: baseline;
+    justify-content: space-between;
+    margin-bottom: 18px;
+  }
+  .sb-day-head h2 { font-size: 16px; font-weight: 600; color: var(--text); }
+  .sb-pct-badge {
+    font-size: 12px;
+    font-family: 'DM Mono', monospace;
+    padding: 3px 8px;
+    border-radius: 4px;
+    font-weight: 500;
+  }
+  .sb-section-title {
+    font-size: 10px;
+    font-family: 'DM Mono', monospace;
+    color: var(--text3);
+    text-transform: uppercase;
+    letter-spacing: .08em;
+    margin: 16px 0 8px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+  .sb-section-title span { color: var(--text2); }
+  .task-item-sb {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 9px 10px;
+    background: var(--bg3);
+    border: 1px solid var(--border);
+    border-radius: var(--radius-sm);
+    margin-bottom: 6px;
+    cursor: pointer;
+    transition: all .15s;
+  }
+  .task-item-sb:hover { border-color: var(--border2); background: var(--bg4); }
+  .task-item-sb.done-t { opacity: .55; }
+  .task-check-sb {
+    width: 18px;
+    height: 18px;
+    border-radius: 5px;
+    border: 1px solid var(--border2);
+    flex-shrink: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 11px;
+    transition: all .15s;
+  }
+  .task-check-sb.done { border: none; }
+  .task-name-sb {
+    font-size: 12px;
+    color: var(--text);
+    flex: 1;
+    line-height: 1.3;
+  }
+  .task-item-sb.done-t .task-name-sb { text-decoration: line-through; color: var(--text3); }
+  .task-tag {
+    font-size: 9px;
+    font-family: 'DM Mono', monospace;
+    padding: 2px 5px;
+    border-radius: 3px;
+  }
+
+  .routine-grid-sb {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 6px;
+    margin-bottom: 4px;
+  }
+  .routine-item-sb {
+    display: flex;
+    align-items: center;
+    gap: 7px;
+    padding: 8px 10px;
+    background: var(--bg3);
+    border: 1px solid var(--border);
+    border-radius: var(--radius-sm);
+    cursor: pointer;
+    transition: all .15s;
+  }
+  .routine-item-sb:hover { border-color: var(--border2); }
+  .routine-item-sb.done-r { background: var(--green-dim); border-color: rgba(62,207,142,.25); }
+  .routine-item-sb.done-r .r-name { color: var(--green); }
+  .r-emoji { font-size: 14px; }
+  .r-name { font-size: 11px; color: var(--text2); transition: color .15s; }
+
+  .rm-sb-item {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding: 8px 10px;
+    background: var(--bg3);
+    border: 1px solid var(--border);
+    border-radius: var(--radius-sm);
+    margin-bottom: 6px;
+  }
+  .rm-dot-sb { width: 8px; height: 8px; border-radius: 50%; flex-shrink: 0; }
+  .rm-name-sb { font-size: 12px; color: var(--text); flex: 1; }
+  .rm-range-sb { font-size: 10px; color: var(--text3); font-family: 'DM Mono', monospace; }
+
+  .progress-ring-wrap {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 16px 0 20px;
+    position: relative;
+  }
+  .ring-label {
+    position: absolute;
+    text-align: center;
+  }
+  .ring-label .ring-pct { font-size: 24px; font-weight: 600; color: var(--text); }
+  .ring-label .ring-sub { font-size: 10px; color: var(--text3); font-family: 'DM Mono', monospace; }
+
+  /* ── LEGEND ── */
+  .legend-row {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    margin-bottom: 18px;
+  }
+  .leg-item { display: flex; align-items: center; gap: 5px; font-size: 10px; color: var(--text3); }
+  .leg-swatch { width: 10px; height: 10px; border-radius: 2px; }
+
+  /* ── SCROLLBAR ── */
+  ::-webkit-scrollbar { width: 5px; }
+  ::-webkit-scrollbar-track { background: transparent; }
+  ::-webkit-scrollbar-thumb { background: var(--bg4); border-radius: 3px; }
+
+  /* ── RESPONSIVE ── */
+  @media (max-width: 900px) {
+    .page { grid-template-columns: 1fr; }
+    .sidebar { position: static; height: auto; border-left: none; border-top: 1px solid var(--border); }
+    .stats-row { grid-template-columns: repeat(2,1fr); }
+  }
+  @media (max-width: 600px) {
+    .main { padding: 14px; }
+    .top-bar { padding: 12px 14px; }
+    .stats-row { grid-template-columns: repeat(2,1fr); gap: 7px; }
+  }
+</style>
+</head>
+<body>
+
+<!-- TOP BAR -->
+<div class="top-bar">
+  <div class="logo">SIDDHARTH · <span>MASTER CALENDAR</span></div>
+  <div class="month-nav">
+    <button class="nav-btn" onclick="prevWeek()">&#8592;</button>
+    <h1 id="weekLabel">Week 1 · June 2026</h1>
+    <button class="nav-btn" onclick="nextWeek()">&#8594;</button>
+  </div>
+  <button class="today-btn" onclick="goToday()">TODAY</button>
+</div>
+
+<div class="page">
+
+  <!-- MAIN -->
+  <div class="main">
+
+    <!-- STATS -->
+    <div class="stats-row">
+      <div class="stat-box">
+        <div class="s-label">Tasks this week</div>
+        <div class="s-val" id="sw-tasks">0 <span>/ 35</span></div>
+        <div class="stat-bar"><div class="stat-bar-fill" id="sb-tasks" style="width:0%;background:var(--blue)"></div></div>
+      </div>
+      <div class="stat-box">
+        <div class="s-label">Weekly % covered</div>
+        <div class="s-val" id="sw-pct">0<span>%</span></div>
+        <div class="stat-bar"><div class="stat-bar-fill" id="sb-pct" style="width:0%;background:var(--amber)"></div></div>
+      </div>
+      <div class="stat-box">
+        <div class="s-label">Routine days full</div>
+        <div class="s-val" id="sw-rout">0 <span>/ 7</span></div>
+        <div class="stat-bar"><div class="stat-bar-fill" id="sb-rout" style="width:0%;background:var(--green)"></div></div>
+      </div>
+      <div class="stat-box">
+        <div class="s-label">Perfect days</div>
+        <div class="s-val" id="sw-perf">0 <span>/ 7</span></div>
+        <div class="stat-bar"><div class="stat-bar-fill" id="sb-perf" style="width:0%;background:var(--purple)"></div></div>
+      </div>
+    </div>
+
+    <!-- ROADMAP STRIP -->
+    <div class="roadmap-strip">
+      <div class="strip-title">June 2026 · Roadmap Timeline</div>
+      <div class="strip-grid" id="roadmapStrip"></div>
+      <div class="strip-labels">
+        <span>Jun 1</span><span>Jun 8</span><span>Jun 15</span><span>Jun 22</span><span>Jun 30</span>
+      </div>
+    </div>
+
+    <!-- LEGEND -->
+    <div class="legend-row">
+      <div class="leg-item"><div class="leg-swatch" style="background:var(--blue)"></div>German</div>
+      <div class="leg-item"><div class="leg-swatch" style="background:var(--green)"></div>Communication</div>
+      <div class="leg-item"><div class="leg-swatch" style="background:var(--purple)"></div>SDET & API</div>
+      <div class="leg-item"><div class="leg-swatch" style="background:var(--amber)"></div>Python</div>
+      <div class="leg-item"><div class="leg-swatch" style="background:var(--coral)"></div>ATS-HireIQ</div>
+      <div class="leg-item"><div class="leg-swatch" style="background:var(--green);opacity:.4"></div>Routine done</div>
+    </div>
+
+    <!-- DAY NAMES -->
+    <div class="cal-day-names">
+      <span>Monday</span><span>Tuesday</span><span>Wednesday</span><span>Thursday</span><span>Friday</span><span>Saturday</span><span>Sunday</span>
+    </div>
+
+    <!-- CALENDAR -->
+    <div class="cal-grid" id="calGrid"></div>
+
+  </div>
+
+  <!-- SIDEBAR -->
+  <div class="sidebar" id="sidebar">
+    <div class="sidebar-empty">
+      <div class="big-icon">📅</div>
+      <div>Click any day to<br>view &amp; update it</div>
+    </div>
+  </div>
+
+</div>
+
+<script>
+const TASKS = [
+  {label:'German learning',        short:'German',    color:'#4d8ef0', bg:'rgba(77,142,240,.15)',  tag:'lang'},
+  {label:'Communication learning', short:'Comms',     color:'#3ecf8e', bg:'rgba(62,207,142,.15)',  tag:'skill'},
+  {label:'SDET & API learning',    short:'SDET/API',  color:'#a78bfa', bg:'rgba(167,139,250,.15)', tag:'tech'},
+  {label:'Python coding',          short:'Python',    color:'#f5a623', bg:'rgba(245,166,35,.15)',  tag:'code'},
+  {label:'ATS — HireIQ',           short:'HireIQ',    color:'#f97066', bg:'rgba(249,112,102,.15)', tag:'job'}
+];
+const ROUTINES = [
+  {key:'exercise',   label:'Exercise',    emoji:'🏋️'},
+  {key:'yoga',       label:'Yoga',        emoji:'🧘'},
+  {key:'running',    label:'Running',     emoji:'🏃'},
+  {key:'meditation', label:'Meditation',  emoji:'🧠'},
+  {key:'affirmation',label:'Affirmation', emoji:'✨'},
+  {key:'journaling', label:'Journaling',  emoji:'📓'}
+];
+const ROADMAP = [
+  {label:'Sprint 1 kickoff',    start:2,  end:6,  color:'#4d8ef0'},
+  {label:'Phase 1 delivery',    start:9,  end:13, color:'#3ecf8e'},
+  {label:'Mid-review',          start:16, end:16, color:'#f5a623'},
+  {label:'Sprint 2 release',    start:18, end:20, color:'#f97066'},
+  {label:'Phase 2 delivery',    start:23, end:27, color:'#a78bfa'},
+  {label:'Month-end closure',   start:29, end:30, color:'#2dd4bf'}
+];
+
+const DATA_KEY = 'siddharth_cal_june2026';
+let data = {};
+try { data = JSON.parse(localStorage.getItem(DATA_KEY) || '{}'); } catch(e) {}
+function save() { localStorage.setItem(DATA_KEY, JSON.stringify(data)); }
+function getDay(d) {
+  if (!data['d'+d]) data['d'+d] = {tasks:[0,0,0,0,0], routines:{}};
+  return data['d'+d];
+}
+
+const today = new Date();
+const todayD = (today.getFullYear()===2026 && today.getMonth()===5) ? today.getDate() : null;
+let currentWeekStart = 1;
+let selectedDay = todayD || 1;
+
+function getWeekDays(ws) {
+  const days=[];
+  for(let i=0;i<7;i++) days.push(ws+i);
+  return days;
+}
+function getRoadmap(d) { return ROADMAP.filter(r=>d>=r.start&&d<=r.end); }
+function getDayPct(d) {
+  if(d<1||d>30) return 0;
+  const dd=getDay(d);
+  return Math.round(((dd.tasks.filter(t=>t).length + ROUTINES.filter(r=>dd.routines[r.key]).length)/11)*100);
+}
+function pctColor(p) { return p>=80?'#3ecf8e':p>=40?'#f5a623':'#4d8ef0'; }
+
+function getWeekStats(ws) {
+  let td=0, rf=0, pf=0;
+  const days=getWeekDays(ws).filter(d=>d>=1&&d<=30);
+  for(const d of days){
+    const dd=getDay(d);
+    const t=dd.tasks.filter(x=>x).length;
+    const r=ROUTINES.filter(x=>dd.routines[x.key]).length;
+    td+=t; if(r===6)rf++; if(t===5&&r===6)pf++;
+  }
+  return {td, rf, pf, pct:Math.round((td/35)*100), n:days.length};
+}
+
+function renderStats() {
+  const s=getWeekStats(currentWeekStart);
+  document.getElementById('sw-tasks').innerHTML=`${s.td} <span>/ 35</span>`;
+  document.getElementById('sb-tasks').style.width=Math.min(Math.round(s.td/35*100),100)+'%';
+  document.getElementById('sw-pct').innerHTML=`${s.pct}<span>%</span>`;
+  document.getElementById('sb-pct').style.width=s.pct+'%';
+  document.getElementById('sw-rout').innerHTML=`${s.rf} <span>/ ${s.n}</span>`;
+  document.getElementById('sb-rout').style.width=Math.min(Math.round(s.rf/7*100),100)+'%';
+  document.getElementById('sw-perf').innerHTML=`${s.pf} <span>/ ${s.n}</span>`;
+  document.getElementById('sb-perf').style.width=Math.min(Math.round(s.pf/7*100),100)+'%';
+}
+
+function renderRoadmapStrip() {
+  const strip=document.getElementById('roadmapStrip');
+  strip.innerHTML='';
+  for(let d=1;d<=30;d++){
+    const cell=document.createElement('div');
+    cell.className='strip-cell';
+    cell.title='Jun '+d;
+    const rms=getRoadmap(d);
+    if(rms.length){
+      cell.style.background=rms[0].color;
+      cell.style.opacity='0.7';
+    }
+    if(d===todayD){ cell.style.outline='2px solid #fff'; cell.style.outlineOffset='-1px'; }
+    cell.onclick=()=>{ currentWeekStart=Math.floor((d-1)/7)*7+1; selectedDay=d; renderAll(); };
+    strip.appendChild(cell);
+  }
+}
+
+function renderWeekLabel() {
+  const days=getWeekDays(currentWeekStart).filter(d=>d>=1&&d<=30);
+  const wn=Math.ceil(currentWeekStart/7);
+  document.getElementById('weekLabel').textContent=`Week ${wn} · Jun ${days[0]}–${days[days.length-1]}, 2026`;
+}
+
+function renderGrid() {
+  const grid=document.getElementById('calGrid');
+  grid.innerHTML='';
+  const days=getWeekDays(currentWeekStart);
+  for(const d of days){
+    const cell=document.createElement('div');
+    if(d<1||d>30){ cell.className='day-cell empty'; grid.appendChild(cell); continue; }
+    const isPast=todayD&&d<todayD;
+    const isToday=d===todayD;
+    const isSel=d===selectedDay;
+    cell.className='day-cell'+(isPast?' is-past':'')+(isToday?' is-today':'')+(isSel?' selected':'');
+    cell.onclick=()=>selectDay(d);
+
+    const dd=getDay(d);
+    const rms=getRoadmap(d);
+    const pct=getDayPct(d);
+    const dayNames=['Mon','Tue','Wed','Thu','Fri','Sat','Sun'];
+    const dn=dayNames[(new Date(2026,5,d).getDay()+6)%7];
+
+    let html=`<div class="d-num">${d} <span style="font-size:10px;color:var(--text3);font-weight:400">${dn}</span>${isToday?'<span class="today-badge">TODAY</span>':''}</div>`;
+
+    if(rms.length) {
+      rms.forEach(r=>{
+        html+=`<div class="rm-pill" style="background:${r.color}22;color:${r.color};border:1px solid ${r.color}44">${r.label}</div>`;
+      });
+    }
+
+    html+='<div class="task-dots">';
+    TASKS.forEach((t,i)=>{
+      const done=!!dd.tasks[i];
+      html+=`<div class="t-dot-row">
+        <div class="t-dot${done?' done':''}" style="${done?'background:'+t.color:''}"></div>
+        <span class="t-dot-label" style="${done?'color:var(--text3);text-decoration:line-through':''}">${t.short}</span>
+      </div>`;
+    });
+    html+='</div>';
+
+    html+='<div class="routine-icons">';
+    ROUTINES.forEach(r=>{
+      const done=!!dd.routines[r.key];
+      html+=`<div class="r-dot${done?' done':''}" title="${r.label}">${r.emoji}</div>`;
+    });
+    html+='</div>';
+
+    html+=`<div class="pct-row">
+      <span class="pct-label">${pct}%</span>
+      <div class="pct-mini"><div class="pct-mini-fill" style="width:${pct}%;background:${pctColor(pct)}"></div></div>
+    </div>`;
+
+    cell.innerHTML=html;
+    grid.appendChild(cell);
+  }
+}
+
+function selectDay(d) {
+  selectedDay=d;
+  renderGrid();
+  renderSidebar(d);
+}
+
+function renderSidebar(d) {
+  const sb=document.getElementById('sidebar');
+  if(!d||d<1||d>30){ sb.innerHTML='<div class="sidebar-empty"><div class="big-icon">📅</div><div>Click any day to<br>view &amp; update it</div></div>'; return; }
+  const dd=getDay(d);
+  const pct=getDayPct(d);
+  const pc=pctColor(pct);
+  const dayNames=['Monday','Tuesday','Wednesday','Thursday','Friday','Saturday','Sunday'];
+  const dn=dayNames[(new Date(2026,5,d).getDay()+6)%7];
+  const td=dd.tasks.filter(t=>t).length;
+  const rd=ROUTINES.filter(r=>dd.routines[r.key]).length;
+  const total=td+rd;
+
+  // SVG ring
+  const r=44, circ=2*Math.PI*r, filled=circ*(pct/100);
+  const ringColor=pc;
+
+  let html=`
+  <div class="sb-day-head">
+    <h2>${dn}, ${d} Jun</h2>
+    <span class="sb-pct-badge" style="background:${pc}22;color:${pc}">${pct}%</span>
+  </div>
+
+  <div class="progress-ring-wrap">
+    <svg width="110" height="110" viewBox="0 0 110 110">
+      <circle cx="55" cy="55" r="${r}" fill="none" stroke="rgba(255,255,255,.06)" stroke-width="7"/>
+      <circle cx="55" cy="55" r="${r}" fill="none" stroke="${ringColor}" stroke-width="7"
+        stroke-dasharray="${filled.toFixed(1)} ${circ.toFixed(1)}"
+        stroke-dashoffset="${(circ/4).toFixed(1)}"
+        stroke-linecap="round" transform="rotate(-90 55 55)" style="transition:stroke-dasharray .5s"/>
+    </svg>
+    <div class="ring-label">
+      <div class="ring-pct">${pct}%</div>
+      <div class="ring-sub">${total}/11 done</div>
+    </div>
+  </div>
+
+  <div class="sb-section-title">Work tasks <span>${td}/5</span></div>`;
+
+  TASKS.forEach((t,i)=>{
+    const done=!!dd.tasks[i];
+    html+=`<div class="task-item-sb${done?' done-t':''}" onclick="toggleTask(${d},${i})">
+      <div class="task-check-sb${done?' done':''}" style="${done?'background:'+t.color:''}">
+        ${done?'<span style="color:#fff;font-size:11px">✓</span>':''}
+      </div>
+      <span class="task-name-sb">${t.label}</span>
+      <span class="task-tag" style="background:${t.bg};color:${t.color}">${t.tag}</span>
+    </div>`;
+  });
+
+  html+=`<div class="sb-section-title">Daily routine <span>${rd}/6</span></div>
+  <div class="routine-grid-sb">`;
+  ROUTINES.forEach(r=>{
+    const done=!!dd.routines[r.key];
+    html+=`<div class="routine-item-sb${done?' done-r':''}" onclick="toggleRoutine(${d},'${r.key}')">
+      <span class="r-emoji">${r.emoji}</span>
+      <span class="r-name">${r.label}</span>
+      ${done?'<span style="margin-left:auto;font-size:10px;color:var(--green)">✓</span>':''}
+    </div>`;
+  });
+  html+='</div>';
+
+  const rms=getRoadmap(d);
+  if(rms.length){
+    html+=`<div class="sb-section-title">Roadmap</div>`;
+    rms.forEach(r=>{
+      html+=`<div class="rm-sb-item">
+        <div class="rm-dot-sb" style="background:${r.color}"></div>
+        <span class="rm-name-sb">${r.label}</span>
+        <span class="rm-range-sb">${r.start}–${r.end}</span>
+      </div>`;
+    });
+  }
+
+  sb.innerHTML=html;
+}
+
+function toggleTask(d,i){
+  const dd=getDay(d); dd.tasks[i]=dd.tasks[i]?0:1;
+  save(); renderGrid(); renderSidebar(d); renderStats();
+}
+function toggleRoutine(d,key){
+  const dd=getDay(d); dd.routines[key]=!dd.routines[key];
+  save(); renderGrid(); renderSidebar(d); renderStats();
+}
+function prevWeek(){ if(currentWeekStart>1){ currentWeekStart=Math.max(1,currentWeekStart-7); renderAll(); } }
+function nextWeek(){ if(currentWeekStart<=24){ currentWeekStart=Math.min(25,currentWeekStart+7); renderAll(); } }
+function goToday(){
+  if(todayD){ currentWeekStart=Math.floor((todayD-1)/7)*7+1; selectedDay=todayD; renderAll(); }
+}
+function renderAll(){
+  renderWeekLabel(); renderStats(); renderRoadmapStrip(); renderGrid(); renderSidebar(selectedDay);
+}
+
+if(todayD){ currentWeekStart=Math.floor((todayD-1)/7)*7+1; selectedDay=todayD; }
+renderAll();
+</script>
+</body>
+</html>
