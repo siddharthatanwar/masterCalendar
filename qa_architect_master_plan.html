@@ -1,0 +1,748 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>QA Architect / SDET Senior — Master Interview Prep Plan</title>
+<style>
+  * { box-sizing: border-box; }
+  body {
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+    line-height: 1.65;
+    color: #2C2C2A;
+    max-width: 1000px;
+    margin: 0 auto;
+    padding: 2rem 1.5rem;
+    background: #FAFAF7;
+  }
+  h1 { font-size: 28px; font-weight: 500; margin: 0 0 0.5rem; }
+  h2 {
+    font-size: 22px;
+    font-weight: 500;
+    margin: 2.5rem 0 1rem;
+    padding-bottom: 10px;
+    border-bottom: 2px solid #D3D1C7;
+  }
+  h3 {
+    font-size: 18px;
+    font-weight: 500;
+    margin: 1.5rem 0 0.75rem;
+    color: #185FA5;
+  }
+  h4 {
+    font-size: 16px;
+    font-weight: 500;
+    margin: 1rem 0 0.5rem;
+    color: #3C3489;
+  }
+  .header {
+    background: linear-gradient(135deg, #EEEDFE 0%, #E6F1FB 100%);
+    border-radius: 14px;
+    padding: 1.75rem 2rem;
+    margin-bottom: 1.5rem;
+    border: 1px solid #D3D1C7;
+  }
+  .header h1 { color: #26215C; }
+  .header .sub {
+    color: #3C3489;
+    font-size: 15px;
+    margin: 0;
+    line-height: 1.6;
+  }
+  .toc {
+    background: #FFFFFF;
+    border: 1px solid #D3D1C7;
+    border-radius: 12px;
+    padding: 1.25rem 1.5rem;
+    margin-bottom: 2rem;
+  }
+  .toc-title {
+    font-size: 14px;
+    color: #5F5E5A;
+    margin: 0 0 0.75rem;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    font-weight: 500;
+  }
+  .toc ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    columns: 2;
+    column-gap: 1.5rem;
+  }
+  .toc li {
+    padding: 4px 0;
+    font-size: 14px;
+  }
+  .toc a {
+    color: #185FA5;
+    text-decoration: none;
+  }
+  .toc a:hover { text-decoration: underline; }
+  .stats-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+    gap: 12px;
+    margin: 1.5rem 0;
+  }
+  .stat-card {
+    background: #FFFFFF;
+    border: 1px solid #D3D1C7;
+    border-radius: 8px;
+    padding: 1rem 1.25rem;
+  }
+  .stat-label {
+    font-size: 11px;
+    color: #5F5E5A;
+    margin: 0 0 6px;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+  }
+  .stat-val { font-size: 22px; font-weight: 500; margin: 0; color: #2C2C2A; }
+  .week-section {
+    background: #FFFFFF;
+    border: 1px solid #D3D1C7;
+    border-radius: 12px;
+    padding: 1.5rem 1.75rem;
+    margin-bottom: 1rem;
+  }
+  .week-tag {
+    display: inline-block;
+    background: #E6F1FB;
+    color: #0C447C;
+    padding: 4px 12px;
+    border-radius: 12px;
+    font-size: 12px;
+    font-weight: 500;
+    margin-bottom: 0.75rem;
+  }
+  .week-title {
+    font-size: 18px;
+    font-weight: 500;
+    margin: 0 0 0.5rem;
+  }
+  .day-block {
+    background: #F1EFE8;
+    border-radius: 8px;
+    padding: 12px 16px;
+    margin: 8px 0;
+    font-size: 14px;
+  }
+  .day-block strong { color: #185FA5; }
+  .module-section {
+    background: #FFFFFF;
+    border: 1px solid #D3D1C7;
+    border-radius: 12px;
+    padding: 1.5rem 1.75rem;
+    margin-bottom: 1.5rem;
+  }
+  .module-header {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    margin-bottom: 1rem;
+  }
+  .module-badge {
+    background: #EEEDFE;
+    color: #3C3489;
+    padding: 6px 14px;
+    border-radius: 8px;
+    font-size: 14px;
+    font-weight: 500;
+  }
+  .module-title {
+    font-size: 19px;
+    font-weight: 500;
+    margin: 0;
+    color: #2C2C2A;
+  }
+  .topic-list {
+    list-style: none;
+    padding: 0;
+    margin: 0.5rem 0;
+  }
+  .topic-list li {
+    padding: 8px 0 8px 22px;
+    position: relative;
+    font-size: 14px;
+    line-height: 1.5;
+  }
+  .topic-list li::before {
+    content: '→';
+    position: absolute;
+    left: 0;
+    color: #1D9E75;
+    font-weight: 500;
+  }
+  .topic-list li strong {
+    color: #2C2C2A;
+    font-weight: 500;
+  }
+  .topic-list li .desc {
+    color: #5F5E5A;
+    font-size: 13px;
+  }
+  .sub-section {
+    background: #F1EFE8;
+    border-radius: 8px;
+    padding: 14px 18px;
+    margin: 10px 0;
+  }
+  .sub-section-title {
+    font-size: 14px;
+    font-weight: 500;
+    color: #3C3489;
+    margin: 0 0 8px;
+    text-transform: uppercase;
+    letter-spacing: 0.3px;
+    font-size: 12px;
+  }
+  .info-box {
+    background: #E6F1FB;
+    color: #0C447C;
+    padding: 14px 18px;
+    border-radius: 8px;
+    font-size: 14px;
+    margin: 1rem 0;
+    border-left: 4px solid #185FA5;
+  }
+  .warning-box {
+    background: #FAEEDA;
+    color: #633806;
+    padding: 14px 18px;
+    border-radius: 8px;
+    font-size: 14px;
+    margin: 1rem 0;
+    border-left: 4px solid #BA7517;
+  }
+  .success-box {
+    background: #E1F5EE;
+    color: #085041;
+    padding: 14px 18px;
+    border-radius: 8px;
+    font-size: 14px;
+    margin: 1rem 0;
+    border-left: 4px solid #1D9E75;
+  }
+  .skill-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+    gap: 10px;
+    margin-top: 12px;
+  }
+  .skill-card {
+    background: #FFFFFF;
+    border: 1px solid #D3D1C7;
+    border-radius: 8px;
+    padding: 12px 14px;
+    font-size: 13px;
+  }
+  .skill-card-title {
+    font-weight: 500;
+    color: #185FA5;
+    margin-bottom: 4px;
+    font-size: 14px;
+  }
+  .skill-card-desc {
+    color: #5F5E5A;
+    font-size: 13px;
+    line-height: 1.5;
+  }
+  .scenario-list {
+    list-style: none;
+    padding: 0;
+    margin: 8px 0;
+  }
+  .scenario-list li {
+    background: #F1EFE8;
+    padding: 10px 14px;
+    border-radius: 6px;
+    margin: 6px 0;
+    font-size: 14px;
+    font-style: italic;
+    color: #444441;
+    border-left: 3px solid #534AB7;
+  }
+  .print-hint {
+    background: #E1F5EE;
+    color: #085041;
+    padding: 12px 16px;
+    border-radius: 8px;
+    font-size: 14px;
+    margin: 1rem 0;
+    border-left: 4px solid #1D9E75;
+  }
+  .progress-section {
+    background: linear-gradient(135deg, #E1F5EE 0%, #EEEDFE 100%);
+    border-radius: 12px;
+    padding: 1.5rem 1.75rem;
+    margin: 2rem 0;
+    border: 1px solid #D3D1C7;
+  }
+  .progress-title {
+    font-size: 19px;
+    font-weight: 500;
+    margin: 0 0 1rem;
+    color: #085041;
+  }
+  .roadmap-flow {
+    background: #FFFFFF;
+    border-radius: 8px;
+    padding: 16px;
+    margin-top: 1rem;
+    font-family: 'SF Mono', Monaco, monospace;
+    font-size: 13px;
+    line-height: 1.8;
+    color: #2C2C2A;
+    white-space: pre-wrap;
+    overflow-x: auto;
+  }
+  .anchor-link {
+    color: #185FA5;
+    text-decoration: none;
+    font-size: 13px;
+  }
+  .anchor-link:hover { text-decoration: underline; }
+  .back-top {
+    text-align: right;
+    margin-top: 1rem;
+  }
+  .back-top a {
+    color: #5F5E5A;
+    font-size: 13px;
+    text-decoration: none;
+  }
+  .back-top a:hover { color: #185FA5; }
+  @media print {
+    body { background: white; max-width: none; }
+    .module-section, .week-section, .header { break-inside: avoid; page-break-inside: avoid; }
+    .toc { display: none; }
+  }
+</style>
+</head>
+<body>
+
+<div class="header" id="top">
+  <h1>QA Architect / SDET Senior — Master Interview Prep Plan</h1>
+  <p class="sub">Complete 3-week roadmap with 6 modules covering Framework Architecture, POC Defense, System Design, AI in Testing, Python Coding, and Behavioural — every topic, every layer, every skill.</p>
+</div>
+
+<div class="print-hint">
+  💡 <strong>How to use:</strong> This is your master reference document. Print or save as PDF (Cmd+P → Save as PDF). Use alongside your 2-week cycle plan. Each cycle covers a slice of this master plan.
+</div>
+
+<div class="toc">
+  <p class="toc-title">📚 Table of contents</p>
+  <ul>
+    <li><a href="#roadmap">⏰ 3-week roadmap</a></li>
+    <li><a href="#module1">🏗 Module 1 — Framework architecture</a></li>
+    <li><a href="#module2">🎯 Module 2 — Your POC mastery</a></li>
+    <li><a href="#module3">📐 Module 3 — System design for QA</a></li>
+    <li><a href="#module4">🤖 Module 4 — AI in testing</a></li>
+    <li><a href="#module5">🐍 Module 5 — Coding round (Python)</a></li>
+    <li><a href="#module6">💼 Module 6 — Behavioural / leadership</a></li>
+    <li><a href="#realistic">🎓 Realistic timeline</a></li>
+  </ul>
+</div>
+
+<div class="stats-grid">
+  <div class="stat-card"><p class="stat-label">Total modules</p><p class="stat-val">6</p></div>
+  <div class="stat-card"><p class="stat-label">Framework layers</p><p class="stat-val">14</p></div>
+  <div class="stat-card"><p class="stat-label">Duration</p><p class="stat-val">3 weeks</p></div>
+  <div class="stat-card"><p class="stat-label">Depth target</p><p class="stat-val">Senior</p></div>
+</div>
+
+<h2 id="roadmap">⏰ The 3-Week Roadmap</h2>
+
+<div class="info-box">
+  <strong>Note:</strong> This is the original aspirational plan. The realistic plan splits this into 2-week cycles for deep mastery. See <a href="#realistic" class="anchor-link">Realistic Timeline</a> section at the bottom.
+</div>
+
+<div class="week-section">
+  <span class="week-tag">Week 1</span>
+  <h3 class="week-title">Foundation + Framework Architecture</h3>
+  <div class="day-block"><strong>Day 1-2:</strong> Framework architecture deep dive (your enterprise structure)</div>
+  <div class="day-block"><strong>Day 3-4:</strong> Your POC mastery — every component, every why</div>
+  <div class="day-block"><strong>Day 5-7:</strong> System design for QA frameworks</div>
+</div>
+
+<div class="week-section">
+  <span class="week-tag">Week 2</span>
+  <h3 class="week-title">Coding + AI + Patterns</h3>
+  <div class="day-block"><strong>Day 8-10:</strong> Python coding round prep (DSA + framework code)</div>
+  <div class="day-block"><strong>Day 11-12:</strong> AI in testing — concepts, agentic patterns</div>
+  <div class="day-block"><strong>Day 13-14:</strong> Design patterns specific to QA (Page Object, Factory, Builder)</div>
+</div>
+
+<div class="week-section">
+  <span class="week-tag">Week 3</span>
+  <h3 class="week-title">Polish + Mock Practice</h3>
+  <div class="day-block"><strong>Day 15-17:</strong> Behavioural + leadership (STAR method)</div>
+  <div class="day-block"><strong>Day 18-19:</strong> Mock interviews — full simulation</div>
+  <div class="day-block"><strong>Day 20-21:</strong> Weak area drilling + final review</div>
+</div>
+
+<div class="back-top"><a href="#top">↑ Back to top</a></div>
+
+<h2 id="module1">🏗 Module 1 — Framework Architecture Deep Dive</h2>
+
+<div class="module-section">
+  <div class="module-header">
+    <span class="module-badge">Module 1.1</span>
+    <h3 class="module-title">Layer-by-layer breakdown (14 layers)</h3>
+  </div>
+
+  <ul class="topic-list">
+    <li><strong>Config Layer</strong> — <span class="desc">env management, secrets, environments, hierarchical loading, schema validation</span></li>
+    <li><strong>API Clients</strong> — <span class="desc">REST, GraphQL, gRPC abstractions, connection pooling, headers, correlation IDs</span></li>
+    <li><strong>Authentication Module</strong> — <span class="desc">OAuth 2.0, JWT, SigV4, API keys, token refresh, session management</span></li>
+    <li><strong>Request Builders</strong> — <span class="desc">fluent API design, payload templates, parameterization, body construction</span></li>
+    <li><strong>Validation Engine</strong> — <span class="desc">JSON schema, business rules, custom validators, contract testing</span></li>
+    <li><strong>DB Utilities</strong> — <span class="desc">connection pooling, fixtures, cleanup strategies, transaction management</span></li>
+    <li><strong>Kafka Utilities</strong> — <span class="desc">consumer/producer test helpers, event verification, async patterns</span></li>
+    <li><strong>Reporting Engine</strong> — <span class="desc">Allure, HTML reports, custom dashboards, metrics aggregation</span></li>
+    <li><strong>Retry Engine</strong> — <span class="desc">exponential backoff, jitter, circuit breaker, transient failure handling</span></li>
+    <li><strong>Logging Layer</strong> — <span class="desc">structured logging, correlation IDs, log aggregation, level filtering</span></li>
+    <li><strong>Test Data Factory</strong> — <span class="desc">builders, faker integration, seed data, fixtures lifecycle</span></li>
+    <li><strong>AI Validation Layer</strong> — <span class="desc">your POC innovation — LLM-based triage, structured outputs, human-in-the-loop</span></li>
+    <li><strong>CI/CD Integration</strong> — <span class="desc">GitHub Actions, Jenkins, GitLab pipelines, test orchestration, parallelization</span></li>
+    <li><strong>Monitoring Hooks</strong> — <span class="desc">CloudWatch, Datadog, Prometheus integration, alerting, observability</span></li>
+  </ul>
+</div>
+
+<div class="module-section">
+  <div class="module-header">
+    <span class="module-badge">Module 1.2</span>
+    <h3 class="module-title">Architecture decisions &amp; trade-offs</h3>
+  </div>
+
+  <div class="skill-grid">
+    <div class="skill-card">
+      <p class="skill-card-title">Monolithic vs Modular</p>
+      <p class="skill-card-desc">When to keep framework as one piece vs split into packages</p>
+    </div>
+    <div class="skill-card">
+      <p class="skill-card-title">Plugin-based vs Hard-coded</p>
+      <p class="skill-card-desc">Extension points, configurability, vendor lock-in</p>
+    </div>
+    <div class="skill-card">
+      <p class="skill-card-title">Sync vs Async execution</p>
+      <p class="skill-card-desc">When async pays off, when it adds complexity</p>
+    </div>
+    <div class="skill-card">
+      <p class="skill-card-title">Parallel execution strategies</p>
+      <p class="skill-card-desc">Process vs thread, shared state, isolation</p>
+    </div>
+    <div class="skill-card">
+      <p class="skill-card-title">Test isolation patterns</p>
+      <p class="skill-card-desc">Per-test DB, per-class fixtures, shared resources</p>
+    </div>
+    <div class="skill-card">
+      <p class="skill-card-title">Cross-team adoption</p>
+      <p class="skill-card-desc">How to drive framework usage across orgs</p>
+    </div>
+  </div>
+</div>
+
+<div class="back-top"><a href="#top">↑ Back to top</a></div>
+
+<h2 id="module2">🎯 Module 2 — Your POC Mastery</h2>
+
+<div class="module-section">
+  <div class="module-header">
+    <span class="module-badge">Module 2</span>
+    <h3 class="module-title">Defending your AI QA POC end-to-end</h3>
+  </div>
+
+  <div class="success-box">
+    <strong>Why this module exists:</strong> Your POC is your most powerful interview ammo. It demonstrates innovation, system thinking, and AI integration — all critical for senior SDET roles.
+  </div>
+
+  <ul class="topic-list">
+    <li><strong>Three-layer architecture defense</strong> — <span class="desc">Test layer, Observability layer, AI layer — what, why, how they connect</span></li>
+    <li><strong>Every design decision justification</strong> — <span class="desc">Why Ollama? Why local? Why JSON output? Why human-in-the-loop?</span></li>
+    <li><strong>Migration path to production</strong> — <span class="desc">CloudWatch Logs Insights, Anthropic Claude API, distributed pytest</span></li>
+    <li><strong>Scale considerations</strong> — <span class="desc">10K tests/day, TB logs, AI agent cost, retention policies</span></li>
+    <li><strong>Failure mode analysis</strong> — <span class="desc">Juice Shop down, Ollama unreachable, log corruption, hook crashes</span></li>
+  </ul>
+
+  <div class="sub-section">
+    <p class="sub-section-title">Interview ammo from your POC</p>
+    <ul class="topic-list">
+      <li><strong>Dual-assertion pattern</strong> — <span class="desc">Sync API check + async log check, catches silent observability failures</span></li>
+      <li><strong>Damage scenarios</strong> — <span class="desc">Credential stuffing, compliance gaps, SIEM blindness — real cost stories</span></li>
+      <li><strong>F-Secure connection</strong> — <span class="desc">Why this matters for security products specifically</span></li>
+      <li><strong>Killer closing line</strong> — <span class="desc">"API tests check did the function work — observability tests check did the function tell anyone"</span></li>
+    </ul>
+  </div>
+</div>
+
+<div class="back-top"><a href="#top">↑ Back to top</a></div>
+
+<h2 id="module3">📐 Module 3 — System Design for QA</h2>
+
+<div class="module-section">
+  <div class="module-header">
+    <span class="module-badge">Module 3.1</span>
+    <h3 class="module-title">Test infrastructure at scale</h3>
+  </div>
+
+  <ul class="topic-list">
+    <li><strong>Design a test framework for 1000+ microservices</strong> — <span class="desc">service discovery, parallel orchestration, dependency mapping, blast radius</span></li>
+    <li><strong>Design a flaky test detection system</strong> — <span class="desc">statistical analysis, retry patterns, root cause categorization, auto-quarantine</span></li>
+    <li><strong>Design a distributed test execution platform</strong> — <span class="desc">worker pools, queue management, result aggregation, retry policies</span></li>
+    <li><strong>Design a test result analytics system</strong> — <span class="desc">data pipelines, trend analysis, MTTR tracking, executive dashboards</span></li>
+    <li><strong>Design an AI-powered test triage system</strong> — <span class="desc">your POC scaled — model selection, cost optimization, golden datasets</span></li>
+  </ul>
+</div>
+
+<div class="module-section">
+  <div class="module-header">
+    <span class="module-badge">Module 3.2</span>
+    <h3 class="module-title">Common design patterns</h3>
+  </div>
+
+  <div class="skill-grid">
+    <div class="skill-card">
+      <p class="skill-card-title">Hexagonal architecture</p>
+      <p class="skill-card-desc">Ports &amp; adapters for swappable backends in test frameworks</p>
+    </div>
+    <div class="skill-card">
+      <p class="skill-card-title">Event-driven orchestration</p>
+      <p class="skill-card-desc">Pub-sub for test triggers, async result handling</p>
+    </div>
+    <div class="skill-card">
+      <p class="skill-card-title">Test data management at scale</p>
+      <p class="skill-card-desc">Synthetic data, anonymization, refresh strategies, GDPR</p>
+    </div>
+    <div class="skill-card">
+      <p class="skill-card-title">Multi-environment, multi-region</p>
+      <p class="skill-card-desc">Geographic distribution, region-specific data, compliance</p>
+    </div>
+  </div>
+</div>
+
+<div class="back-top"><a href="#top">↑ Back to top</a></div>
+
+<h2 id="module4">🤖 Module 4 — AI in Testing</h2>
+
+<div class="module-section">
+  <div class="module-header">
+    <span class="module-badge">Module 4.1</span>
+    <h3 class="module-title">Concepts</h3>
+  </div>
+
+  <ul class="topic-list">
+    <li><strong>Agentic systems</strong> — <span class="desc">Proposer vs Decider pattern, agent autonomy levels, decision boundaries</span></li>
+    <li><strong>Human-in-the-loop patterns</strong> — <span class="desc">When automation is risky, validation gates, confidence thresholds</span></li>
+    <li><strong>RAG for test generation</strong> — <span class="desc">Retrieval-Augmented Generation, requirements → test cases, embedding strategies</span></li>
+    <li><strong>LLM evaluation harnesses</strong> — <span class="desc">Golden datasets, precision/recall, hallucination detection, drift monitoring</span></li>
+    <li><strong>Prompt engineering for tests</strong> — <span class="desc">Structured outputs, few-shot examples, chain-of-thought, system prompts</span></li>
+  </ul>
+</div>
+
+<div class="module-section">
+  <div class="module-header">
+    <span class="module-badge">Module 4.2</span>
+    <h3 class="module-title">Practical applications</h3>
+  </div>
+
+  <div class="skill-grid">
+    <div class="skill-card">
+      <p class="skill-card-title">AI for test generation</p>
+      <p class="skill-card-desc">From requirements/specs to executable test cases automatically</p>
+    </div>
+    <div class="skill-card">
+      <p class="skill-card-title">AI for failure triage</p>
+      <p class="skill-card-desc">Your POC — log analysis, RCA hypotheses, next-step suggestions</p>
+    </div>
+    <div class="skill-card">
+      <p class="skill-card-title">AI for visual regression</p>
+      <p class="skill-card-desc">Smart screenshot diff, ignore non-critical changes</p>
+    </div>
+    <div class="skill-card">
+      <p class="skill-card-title">AI for flaky test detection</p>
+      <p class="skill-card-desc">Pattern recognition in failure histories, auto-categorization</p>
+    </div>
+    <div class="skill-card">
+      <p class="skill-card-title">AI for test impact analysis</p>
+      <p class="skill-card-desc">Code changes → which tests to run, smart test selection</p>
+    </div>
+  </div>
+</div>
+
+<div class="module-section">
+  <div class="module-header">
+    <span class="module-badge">Module 4.3</span>
+    <h3 class="module-title">Productionizing AI agents</h3>
+  </div>
+
+  <ul class="topic-list">
+    <li><strong>Model-agnostic design</strong> — <span class="desc">Ollama → Claude swap with 3-line change, abstraction layer for LLM providers</span></li>
+    <li><strong>Cost optimization</strong> — <span class="desc">Token usage tracking, model tier selection (Haiku vs Sonnet vs Opus), caching</span></li>
+    <li><strong>Latency/throughput trade-offs</strong> — <span class="desc">When to use local vs cloud, batching, async invocation</span></li>
+    <li><strong>Hallucination mitigation</strong> — <span class="desc">Structured outputs, validation loops, confidence scoring, fallback to humans</span></li>
+    <li><strong>Evaluation and monitoring</strong> — <span class="desc">Precision/recall tracking, A/B testing prompts, drift detection over time</span></li>
+  </ul>
+</div>
+
+<div class="back-top"><a href="#top">↑ Back to top</a></div>
+
+<h2 id="module5">🐍 Module 5 — Coding Round (Python)</h2>
+
+<div class="module-section">
+  <div class="module-header">
+    <span class="module-badge">Module 5.1</span>
+    <h3 class="module-title">DSA fundamentals</h3>
+  </div>
+
+  <ul class="topic-list">
+    <li><strong>Arrays, strings, hashmaps, sets</strong> — <span class="desc">Foundation data structures, common patterns, Python idioms</span></li>
+    <li><strong>Trees, graphs, recursion</strong> — <span class="desc">BFS, DFS, tree traversal, recursive thinking</span></li>
+    <li><strong>Sorting, searching, two pointers</strong> — <span class="desc">Built-in sort, binary search, classic patterns</span></li>
+    <li><strong>Sliding window, dynamic programming basics</strong> — <span class="desc">Fixed/variable window, memoization, simple DP problems</span></li>
+    <li><strong>Big-O analysis</strong> — <span class="desc">Time &amp; space complexity, trade-offs, real-world implications</span></li>
+  </ul>
+</div>
+
+<div class="module-section">
+  <div class="module-header">
+    <span class="module-badge">Module 5.2</span>
+    <h3 class="module-title">Python framework coding</h3>
+  </div>
+
+  <div class="skill-grid">
+    <div class="skill-card">
+      <p class="skill-card-title">Decorators</p>
+      <p class="skill-card-desc">@retry, @log, @cache, @timing — patterns for cross-cutting concerns</p>
+    </div>
+    <div class="skill-card">
+      <p class="skill-card-title">Context managers</p>
+      <p class="skill-card-desc">with statements, __enter__/__exit__, resource cleanup, contextlib</p>
+    </div>
+    <div class="skill-card">
+      <p class="skill-card-title">Generators</p>
+      <p class="skill-card-desc">yield, memory-efficient iteration, test data streams</p>
+    </div>
+    <div class="skill-card">
+      <p class="skill-card-title">Multithreading/multiprocessing</p>
+      <p class="skill-card-desc">GIL, parallel test execution, ProcessPoolExecutor</p>
+    </div>
+    <div class="skill-card">
+      <p class="skill-card-title">AsyncIO</p>
+      <p class="skill-card-desc">async/await, asyncio.gather, when async wins, when it doesn't</p>
+    </div>
+    <div class="skill-card">
+      <p class="skill-card-title">Pytest internals</p>
+      <p class="skill-card-desc">Fixtures lifecycle, hooks, conftest.py, plugin architecture</p>
+    </div>
+    <div class="skill-card">
+      <p class="skill-card-title">Mocking deeply</p>
+      <p class="skill-card-desc">Mock, MagicMock, patch, side_effects, spec, autospec</p>
+    </div>
+  </div>
+</div>
+
+<div class="module-section">
+  <div class="module-header">
+    <span class="module-badge">Module 5.3</span>
+    <h3 class="module-title">Live coding scenarios</h3>
+  </div>
+
+  <p style="font-size: 14px; color: #5F5E5A; margin-bottom: 12px;">These are actual interview problems you should be able to solve in 20-30 min on a whiteboard:</p>
+
+  <ul class="scenario-list">
+    <li>"Write a retry decorator with exponential backoff"</li>
+    <li>"Implement a thread-safe API client with connection pooling"</li>
+    <li>"Design a test data builder using fluent interface"</li>
+    <li>"Write a pytest plugin that captures and reports custom metrics"</li>
+    <li>"Build a log parser that detects anomalies"</li>
+  </ul>
+</div>
+
+<div class="back-top"><a href="#top">↑ Back to top</a></div>
+
+<h2 id="module6">💼 Module 6 — Behavioural / Leadership</h2>
+
+<div class="module-section">
+  <div class="module-header">
+    <span class="module-badge">Module 6</span>
+    <h3 class="module-title">Senior-level interpersonal &amp; leadership skills</h3>
+  </div>
+
+  <div class="warning-box">
+    <strong>Heads up:</strong> At senior architect level, behavioural rounds carry as much weight as technical. Leadership without authority, conflict management, and selling test investment to non-technical stakeholders are the differentiators.
+  </div>
+
+  <ul class="topic-list">
+    <li><strong>STAR method mastery</strong> — <span class="desc">Situation, Task, Action, Result — structured storytelling for every scenario</span></li>
+    <li><strong>Conflict scenarios</strong> — <span class="desc">Disagreements with developers, pushback from management, ego conflicts</span></li>
+    <li><strong>Influence without authority</strong> — <span class="desc">Getting buy-in when you can't mandate, coalition building, data-driven persuasion</span></li>
+    <li><strong>Driving framework adoption</strong> — <span class="desc">Cross-team rollout strategies, training programs, evangelism</span></li>
+    <li><strong>Handling production incidents</strong> — <span class="desc">War room behavior, root cause analysis, blameless postmortems</span></li>
+    <li><strong>Mentoring junior testers</strong> — <span class="desc">Growth conversations, skill-gap analysis, feedback delivery</span></li>
+    <li><strong>Selling test investment to leadership</strong> — <span class="desc">ROI stories, risk frameworks, business case for tooling spend</span></li>
+  </ul>
+</div>
+
+<div class="back-top"><a href="#top">↑ Back to top</a></div>
+
+<h2 id="realistic">🎓 Realistic Timeline — Cycles vs Marathon</h2>
+
+<div class="progress-section">
+  <h3 class="progress-title">From 3-week aspiration to 4-month reality</h3>
+
+  <div class="warning-box">
+    <strong>Honest truth:</strong> The 3-week roadmap above is aspirational. Going through 14 framework layers + 6 modules in 21 days = <strong>surface scan</strong>. Interview will drill 1 layer for 30 minutes — and surface knowledge collapses there.
+  </div>
+
+  <p style="font-size: 14px; line-height: 1.6; margin-top: 1rem;"><strong>Realistic plan = 8 cycles of 2 weeks each = ~4 months total</strong></p>
+
+  <div class="roadmap-flow">
+CYCLE 1 (Weeks 1-2)  → Config Layer + API Client + POC Defense           [32% covered]
+CYCLE 2 (Weeks 3-4)  → Auth + Request Builders + Validation              [45% covered]
+CYCLE 3 (Weeks 5-6)  → Test Data Factory + DB + Kafka                    [55% covered]
+CYCLE 4 (Weeks 7-8)  → Reporting + Retry Engine + Logging Layer          [65% covered]
+CYCLE 5 (Weeks 9-10) → AI Validation deep + Monitoring + CI/CD           [75% covered]
+CYCLE 6 (Weeks 11-12)→ Python coding round + DSA                         [85% covered]
+CYCLE 7 (Weeks 13-14)→ System Design problems (deep)                     [92% covered]
+CYCLE 8 (Weeks 15-16)→ Behavioural + Final mocks + Polish                [98% covered]
+
+TOTAL: 16 weeks (~4 months) for COMPLETE senior interview readiness
+  </div>
+
+  <div class="info-box" style="margin-top: 1.5rem;">
+    <strong>Each cycle structure:</strong> 2.5 hr daily (2 hr morning + 30 min evening recall), weekends 3 hr. Pomodoro-based, active production daily, mock interviews mid-cycle. See cycle 1 detailed plan for the template.
+  </div>
+</div>
+
+<div class="success-box">
+  <strong>🎯 Key principle:</strong> Depth wins over breadth in interviews. Better to master 5 layers truly than survey 14 superficially. Each cycle takes 2 weeks of disciplined work but delivers <em>actually defensible</em> knowledge — the kind that survives a 30-minute drill from a senior architect.
+</div>
+
+<h2 id="next">⚡ Next Action — Where to Start</h2>
+
+<div class="module-section">
+  <p style="font-size: 15px; line-height: 1.7;">You're starting with <strong>Cycle 1</strong> — Config Layer + API Client + POC Defense. See the dedicated <em>"2-week prep plan"</em> document for day-by-day breakdown.</p>
+
+  <p style="font-size: 14px; color: #5F5E5A; margin-top: 1rem;">After Cycle 1 ends (~2 weeks), you'll:</p>
+  <ul style="font-size: 14px; line-height: 1.7;">
+    <li>Have mastered 3 critical areas (Config, API Client, POC)</li>
+    <li>Have done 2+ mock interview recordings</li>
+    <li>Have honest self-rating per topic (/10 scale)</li>
+    <li>Know exactly what Cycle 2 needs to address</li>
+  </ul>
+
+  <p style="font-size: 14px; line-height: 1.7; margin-top: 1rem;"><strong>Adjust based on interview timing:</strong> If interview is in 1 month, condense by focusing on Modules 1, 2, and 5 first. If interview is in 4+ months, follow full sequence for maximum depth.</p>
+</div>
+
+<div class="back-top"><a href="#top">↑ Back to top</a></div>
+
+<div style="text-align: center; margin: 3rem 0 1rem; font-size: 13px; color: #888780;">
+  <p>Master plan — generated for sustainable senior SDET interview preparation</p>
+  <p>Use alongside: cycle 1 detailed daily plan · POC documentation · framework reference code</p>
+</div>
+
+</body>
+</html>

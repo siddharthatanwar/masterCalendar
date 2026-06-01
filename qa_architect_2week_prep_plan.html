@@ -1,0 +1,975 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>QA Architect 2-Week Prep Plan — Cycle 1</title>
+<style>
+  * { box-sizing: border-box; }
+  body {
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+    line-height: 1.6;
+    color: #2C2C2A;
+    max-width: 900px;
+    margin: 0 auto;
+    padding: 2rem 1.5rem;
+    background: #FAFAF7;
+  }
+  h1 { font-size: 26px; font-weight: 500; margin: 0 0 0.5rem; }
+  h2 { font-size: 20px; font-weight: 500; margin: 2rem 0 1rem; padding-bottom: 8px; border-bottom: 1px solid #D3D1C7; }
+  h3 { font-size: 17px; font-weight: 500; margin: 0; }
+  .header {
+    background: #F1EFE8;
+    border-radius: 12px;
+    padding: 1.5rem 2rem;
+    margin-bottom: 1.5rem;
+  }
+  .header .sub { color: #5F5E5A; font-size: 14px; margin: 0; }
+  .stats-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+    gap: 12px;
+    margin: 1.25rem 0;
+  }
+  .stat-card {
+    background: #F1EFE8;
+    border-radius: 8px;
+    padding: 1rem;
+  }
+  .stat-label {
+    font-size: 11px;
+    color: #5F5E5A;
+    margin: 0 0 6px;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+  }
+  .stat-val { font-size: 22px; font-weight: 500; margin: 0; color: #2C2C2A; }
+  .week-banner {
+    background: #E6F1FB;
+    color: #0C447C;
+    padding: 12px 18px;
+    border-radius: 8px;
+    font-weight: 500;
+    font-size: 15px;
+    margin: 1.5rem 0 1rem;
+  }
+  .day-card {
+    background: #FFFFFF;
+    border: 1px solid #D3D1C7;
+    border-radius: 12px;
+    padding: 1.25rem 1.5rem;
+    margin-bottom: 14px;
+  }
+  .day-card.weekend {
+    border-left: 4px solid #534AB7;
+    padding-left: calc(1.5rem - 4px);
+  }
+  .day-head {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 8px;
+    margin-bottom: 12px;
+  }
+  .day-time {
+    font-size: 13px;
+    color: #5F5E5A;
+  }
+  .tag-row {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 6px;
+    margin-bottom: 12px;
+  }
+  .tag {
+    font-size: 12px;
+    padding: 3px 10px;
+    border-radius: 12px;
+    font-weight: 500;
+  }
+  .tag-mod { background: #EEEDFE; color: #3C3489; }
+  .tag-layer { background: #E1F5EE; color: #085041; }
+  .tag-skill { background: #FAEEDA; color: #633806; }
+  .pomo-list {
+    font-size: 14px;
+    margin: 10px 0;
+    padding-left: 0;
+    list-style: none;
+  }
+  .pomo-list li {
+    padding: 6px 0;
+    display: flex;
+    gap: 10px;
+    align-items: flex-start;
+  }
+  .pomo-num {
+    font-weight: 500;
+    color: #185FA5;
+    font-size: 13px;
+    min-width: 30px;
+  }
+  .outcomes {
+    background: #F1EFE8;
+    border-radius: 8px;
+    padding: 12px 14px;
+    margin-top: 12px;
+  }
+  .outcomes-title {
+    font-size: 12px;
+    color: #5F5E5A;
+    margin: 0 0 8px;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    font-weight: 500;
+  }
+  .outcomes label {
+    display: flex;
+    gap: 8px;
+    font-size: 14px;
+    padding: 4px 0;
+    cursor: pointer;
+    align-items: flex-start;
+  }
+  .outcomes input { margin-top: 4px; }
+  .evening {
+    background: #EEEDFE;
+    border-radius: 8px;
+    padding: 12px 14px;
+    margin-top: 12px;
+  }
+  .evening-title {
+    font-size: 12px;
+    color: #3C3489;
+    margin: 0 0 8px;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    font-weight: 500;
+  }
+  .evening-q {
+    font-size: 14px;
+    color: #26215C;
+    padding: 3px 0;
+  }
+  .coverage-bar-row {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    font-size: 13px;
+    color: #5F5E5A;
+    margin-top: 12px;
+  }
+  .coverage-track {
+    flex: 1;
+    height: 7px;
+    background: #F1EFE8;
+    border-radius: 4px;
+    overflow: hidden;
+  }
+  .coverage-fill {
+    height: 100%;
+    background: #1D9E75;
+    border-radius: 4px;
+  }
+  .checkpoint {
+    background: #FAEEDA;
+    border-radius: 8px;
+    padding: 12px 16px;
+    margin: 14px 0;
+    font-size: 14px;
+    color: #633806;
+  }
+  .dashboard-section {
+    background: #F1EFE8;
+    border-radius: 12px;
+    padding: 1.5rem 1.75rem;
+    margin: 2rem 0 1rem;
+  }
+  .dashboard-title { font-size: 20px; font-weight: 500; margin: 0 0 1rem; }
+  .module-row {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    padding: 12px 0;
+    border-bottom: 1px solid #D3D1C7;
+  }
+  .module-row:last-child { border-bottom: none; }
+  .module-name { font-size: 14px; min-width: 200px; }
+  .module-bar {
+    flex: 1;
+    height: 10px;
+    background: #FFFFFF;
+    border-radius: 5px;
+    overflow: hidden;
+  }
+  .module-fill {
+    height: 100%;
+    border-radius: 5px;
+  }
+  .module-fill.high { background: #1D9E75; }
+  .module-fill.mid { background: #EF9F27; }
+  .module-fill.low { background: #B4B2A9; }
+  .module-fill.none { background: #D3D1C7; }
+  .module-pct {
+    font-size: 14px;
+    font-weight: 500;
+    min-width: 55px;
+    text-align: right;
+  }
+  .module-status {
+    font-size: 11px;
+    padding: 3px 10px;
+    border-radius: 12px;
+    font-weight: 500;
+    min-width: 80px;
+    text-align: center;
+  }
+  .status-done { background: #E1F5EE; color: #085041; }
+  .status-progress { background: #FAEEDA; color: #633806; }
+  .status-touched { background: #EEEDFE; color: #3C3489; }
+  .status-pending { background: #FFFFFF; color: #888780; border: 1px solid #D3D1C7; }
+  .compare-table {
+    width: 100%;
+    font-size: 14px;
+    margin-top: 14px;
+    border-collapse: collapse;
+  }
+  .compare-table th, .compare-table td {
+    padding: 10px 12px;
+    text-align: left;
+    border-bottom: 1px solid #D3D1C7;
+  }
+  .compare-table th {
+    font-weight: 500;
+    color: #5F5E5A;
+    font-size: 12px;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+  }
+  .rules-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 10px;
+    margin-top: 14px;
+  }
+  .rule {
+    font-size: 14px;
+    padding: 10px 12px;
+    background: #FFFFFF;
+    border-radius: 8px;
+    border: 1px solid #D3D1C7;
+  }
+  .rule-num {
+    font-weight: 500;
+    color: #185FA5;
+    margin-right: 8px;
+  }
+  .next-cycle {
+    background: #FFFFFF;
+    border: 1px solid #D3D1C7;
+    border-radius: 8px;
+    padding: 14px;
+    margin-top: 14px;
+    font-size: 14px;
+  }
+  .next-cycle-title {
+    font-weight: 500;
+    margin: 0 0 8px;
+    font-size: 14px;
+  }
+  .print-hint {
+    background: #E1F5EE;
+    color: #085041;
+    padding: 12px 16px;
+    border-radius: 8px;
+    font-size: 14px;
+    margin: 1rem 0;
+  }
+  @media print {
+    body { background: white; }
+    .day-card, .dashboard-section, .header { break-inside: avoid; }
+  }
+</style>
+</head>
+<body>
+
+<div class="header">
+  <h1>QA Architect 2-week prep plan — Cycle 1</h1>
+  <p class="sub">Config layer + API client + your POC defense. Built for sustainable deep learning, not surface scan.</p>
+</div>
+
+<div class="print-hint">
+  💡 <strong>Tip:</strong> Print this page or save as PDF (Cmd+P → Save as PDF). Tick checkboxes as you complete tasks. Keep next to your laptop daily.
+</div>
+
+<div class="stats-grid">
+  <div class="stat-card"><p class="stat-label">Daily commit</p><p class="stat-val">2.5 hr</p></div>
+  <div class="stat-card"><p class="stat-label">Total hours</p><p class="stat-val">37 hr</p></div>
+  <div class="stat-card"><p class="stat-label">Pomodoros</p><p class="stat-val">56+</p></div>
+  <div class="stat-card"><p class="stat-label">Coverage target</p><p class="stat-val">32%</p></div>
+</div>
+
+<div class="week-banner">📅 Week 1 — Config layer mastery + API client start</div>
+
+<div class="day-card">
+  <div class="day-head">
+    <h3>Day 1 — Monday · Config layer foundation</h3>
+    <span class="day-time">⏱ 2 hr morning + 30 min recall</span>
+  </div>
+  <div class="tag-row">
+    <span class="tag tag-mod">Module 1</span>
+    <span class="tag tag-layer">Config layer</span>
+    <span class="tag tag-skill">Mental model</span>
+  </div>
+  <ul class="pomo-list">
+    <li><span class="pomo-num">P1</span>Restaurant analogy deep re-read · underline aha moments</li>
+    <li><span class="pomo-num">P2</span>Active writing — 250 words "what is config layer?" in own words</li>
+    <li><span class="pomo-num">P3</span>Code vs config drill — classify 20 items</li>
+    <li><span class="pomo-num">P4</span>Draw mental model diagram on paper</li>
+  </ul>
+  <div class="evening">
+    <p class="evening-title">🌙 Evening recall (30 min)</p>
+    <div class="evening-q">Q1 · Explain config layer in 60 seconds, no notes</div>
+    <div class="evening-q">Q2 · Code vs config — what's the rule?</div>
+    <div class="evening-q">Q3 · 3 problems if config didn't exist</div>
+    <div class="evening-q">Q4 · Generate 1 question for tomorrow</div>
+  </div>
+  <div class="outcomes">
+    <p class="outcomes-title">Outcomes</p>
+    <label><input type="checkbox"/>Can explain in 60 sec without notes</label>
+    <label><input type="checkbox"/>Restaurant analogy unforgettable</label>
+    <label><input type="checkbox"/>250-word essay written</label>
+    <label><input type="checkbox"/>Confidence rated honestly /10</label>
+  </div>
+  <div class="coverage-bar-row">
+    <span>Config layer</span>
+    <div class="coverage-track"><div class="coverage-fill" style="width: 20%;"></div></div>
+    <span>20%</span>
+  </div>
+</div>
+
+<div class="day-card">
+  <div class="day-head">
+    <h3>Day 2 — Tuesday · Config layer hands-on</h3>
+    <span class="day-time">⏱ 2 hr morning + 30 min recall</span>
+  </div>
+  <div class="tag-row">
+    <span class="tag tag-mod">Module 1</span>
+    <span class="tag tag-layer">Config layer</span>
+    <span class="tag tag-skill">Build from scratch</span>
+  </div>
+  <ul class="pomo-list">
+    <li><span class="pomo-num">P1</span>Setup folder structure · venv · skeleton files</li>
+    <li><span class="pomo-num">P2</span>Write dev.yaml + prod.yaml with 5 keys each</li>
+    <li><span class="pomo-num">P3</span>Build minimal config.py loader · max 20 lines</li>
+    <li><span class="pomo-num">P4</span>Use config in test · screenshot proof of working code</li>
+  </ul>
+  <div class="evening">
+    <p class="evening-title">🌙 Evening recall (30 min)</p>
+    <div class="evening-q">Q1 · Recreate folder structure on paper</div>
+    <div class="evening-q">Q2 · Re-write load_config function from memory</div>
+    <div class="evening-q">Q3 · Adding new staging env — 3 steps?</div>
+    <div class="evening-q">Q4 · Identify the design flaw (secrets!)</div>
+  </div>
+  <div class="outcomes">
+    <p class="outcomes-title">Outcomes</p>
+    <label><input type="checkbox"/>Working config system on machine</label>
+    <label><input type="checkbox"/>Can write loader from memory</label>
+    <label><input type="checkbox"/>Screenshot of output saved</label>
+    <label><input type="checkbox"/>Secrets flaw identified</label>
+  </div>
+  <div class="coverage-bar-row">
+    <span>Config layer</span>
+    <div class="coverage-track"><div class="coverage-fill" style="width: 35%;"></div></div>
+    <span>35%</span>
+  </div>
+</div>
+
+<div class="day-card">
+  <div class="day-head">
+    <h3>Day 3 — Wednesday · Secrets separation</h3>
+    <span class="day-time">⏱ 2 hr morning + 30 min recall</span>
+  </div>
+  <div class="tag-row">
+    <span class="tag tag-mod">Module 1</span>
+    <span class="tag tag-layer">Config layer</span>
+    <span class="tag tag-skill">Security practices</span>
+  </div>
+  <ul class="pomo-list">
+    <li><span class="pomo-num">P1</span>Read 2 real breach stories · list 5 risks of secrets in YAML</li>
+    <li><span class="pomo-num">P2</span>Add env-var expansion to config loader</li>
+    <li><span class="pomo-num">P3</span>Read AWS Secrets Manager / Vault concepts (reading only)</li>
+    <li><span class="pomo-num">P4</span>Draw 3-tier secrets diagram (local · CI · prod)</li>
+  </ul>
+  <div class="evening">
+    <p class="evening-title">🌙 Evening recall (30 min)</p>
+    <div class="evening-q">Q1 · 3 risks of secrets in YAML</div>
+    <div class="evening-q">Q2 · 3-tier secrets strategy — name each tier</div>
+    <div class="evening-q">Q3 · Interviewer: "How do you handle secrets?" — 2 min answer</div>
+    <div class="evening-q">Q4 · Recreate env-var code from memory</div>
+  </div>
+  <div class="outcomes">
+    <p class="outcomes-title">Outcomes</p>
+    <label><input type="checkbox"/>Can defend "secrets ≠ config" in interview</label>
+    <label><input type="checkbox"/>Env-var expansion code working</label>
+    <label><input type="checkbox"/>3-tier diagram drawn</label>
+    <label><input type="checkbox"/>2 breach examples noted</label>
+  </div>
+  <div class="coverage-bar-row">
+    <span>Config layer</span>
+    <div class="coverage-track"><div class="coverage-fill" style="width: 50%;"></div></div>
+    <span>50%</span>
+  </div>
+</div>
+
+<div class="day-card">
+  <div class="day-head">
+    <h3>Day 4 — Thursday · Schema validation with Pydantic</h3>
+    <span class="day-time">⏱ 2 hr morning + 30 min recall</span>
+  </div>
+  <div class="tag-row">
+    <span class="tag tag-mod">Module 1</span>
+    <span class="tag tag-layer">Config layer</span>
+    <span class="tag tag-skill">Fail-fast design</span>
+  </div>
+  <ul class="pomo-list">
+    <li><span class="pomo-num">P1</span>Deliberately break YAML · observe silent failures</li>
+    <li><span class="pomo-num">P2</span>Read Pydantic intro · understand schema-as-contract</li>
+    <li><span class="pomo-num">P3</span>Add Pydantic models · re-run broken YAML · see catches</li>
+    <li><span class="pomo-num">P4</span>Write 200-word answer "why Pydantic?" · practice aloud</li>
+  </ul>
+  <div class="evening">
+    <p class="evening-title">🌙 Evening recall (30 min)</p>
+    <div class="evening-q">Q1 · What is fail-fast? Why is it good?</div>
+    <div class="evening-q">Q2 · Write Pydantic model from memory</div>
+    <div class="evening-q">Q3 · 3 things Pydantic catches that dict doesn't</div>
+    <div class="evening-q">Q4 · Pydantic vs dataclass vs dict — when each?</div>
+  </div>
+  <div class="outcomes">
+    <p class="outcomes-title">Outcomes</p>
+    <label><input type="checkbox"/>Pydantic-validated config working</label>
+    <label><input type="checkbox"/>Can defend "why validate?"</label>
+    <label><input type="checkbox"/>Understands fail-fast principle</label>
+    <label><input type="checkbox"/>Can write Pydantic model from memory</label>
+  </div>
+  <div class="coverage-bar-row">
+    <span>Config layer</span>
+    <div class="coverage-track"><div class="coverage-fill" style="width: 65%;"></div></div>
+    <span>65%</span>
+  </div>
+</div>
+
+<div class="day-card">
+  <div class="day-head">
+    <h3>Day 5 — Friday · Config mock interview day</h3>
+    <span class="day-time">⏱ 2 hr morning + 30 min recall</span>
+  </div>
+  <div class="tag-row">
+    <span class="tag tag-mod">Module 1</span>
+    <span class="tag tag-layer">Config layer</span>
+    <span class="tag tag-skill">Interview-ready</span>
+  </div>
+  <ul class="pomo-list">
+    <li><span class="pomo-num">P1</span>Write trade-off answers — YAML vs JSON · singleton vs DI · etc.</li>
+    <li><span class="pomo-num">P2</span>List 8 anti-patterns with 1-line "why bad" each</li>
+    <li><span class="pomo-num">P3</span>Self-record 5 mock answers on phone (2 min each)</li>
+    <li><span class="pomo-num">P4</span>Listen back · note hesitations · identify weak spots</li>
+  </ul>
+  <div class="evening">
+    <p class="evening-title">🌙 Evening recall — week 1 consolidation (30 min)</p>
+    <div class="evening-q">Q1 · Write 1-page summary of config layer from memory</div>
+    <div class="evening-q">Q2 · List 5 senior-level depth signals you'd drop</div>
+    <div class="evening-q">Q3 · Config layer confidence /10 — honest</div>
+    <div class="evening-q">Q4 · Generate 2 questions for API client deep dive</div>
+  </div>
+  <div class="checkpoint">
+    🚩 <strong>Checkpoint:</strong> Self-rating below 7 → extend by 1 day on weak areas. Rating 7+ → proceed to API client on day 6.
+  </div>
+  <div class="outcomes">
+    <p class="outcomes-title">Outcomes</p>
+    <label><input type="checkbox"/>Mock interview recording saved</label>
+    <label><input type="checkbox"/>Self-critique with weak spots noted</label>
+    <label><input type="checkbox"/>1-page summary from memory</label>
+    <label><input type="checkbox"/>Config layer mastery checkpoint passed</label>
+  </div>
+  <div class="coverage-bar-row">
+    <span>Config layer</span>
+    <div class="coverage-track"><div class="coverage-fill" style="width: 80%;"></div></div>
+    <span>80% ✓</span>
+  </div>
+</div>
+
+<div class="day-card weekend">
+  <div class="day-head">
+    <h3>Day 6 — Saturday · API client foundation</h3>
+    <span class="day-time">⏱ 2.5 hr morning + 30 min recall</span>
+  </div>
+  <div class="tag-row">
+    <span class="tag tag-mod">Module 1</span>
+    <span class="tag tag-layer">API clients</span>
+    <span class="tag tag-skill">Abstraction</span>
+  </div>
+  <ul class="pomo-list">
+    <li><span class="pomo-num">P1</span>Why API client abstraction? List 5 problems with raw requests</li>
+    <li><span class="pomo-num">P2</span>Build TV-remote mental analogy · write your own</li>
+    <li><span class="pomo-num">P3</span>REST vs GraphQL vs gRPC comparison table</li>
+    <li><span class="pomo-num">P4</span>Build minimal APIClient class · 30 lines max</li>
+    <li><span class="pomo-num">P5</span>Use APIClient in a test · compare with raw requests</li>
+  </ul>
+  <div class="evening">
+    <p class="evening-title">🌙 Evening recall (30 min)</p>
+    <div class="evening-q">Q1 · Why API client abstraction? 3 reasons</div>
+    <div class="evening-q">Q2 · Write APIClient class from memory</div>
+    <div class="evening-q">Q3 · REST vs GraphQL — when to use which?</div>
+    <div class="evening-q">Q4 · How does APIClient use config layer?</div>
+  </div>
+  <div class="outcomes">
+    <p class="outcomes-title">Outcomes</p>
+    <label><input type="checkbox"/>Working APIClient class on machine</label>
+    <label><input type="checkbox"/>Connected with config layer</label>
+    <label><input type="checkbox"/>Understands abstraction benefit</label>
+    <label><input type="checkbox"/>3 protocols compared</label>
+  </div>
+  <div class="coverage-bar-row">
+    <span>API client</span>
+    <div class="coverage-track"><div class="coverage-fill" style="width: 20%;"></div></div>
+    <span>20%</span>
+  </div>
+</div>
+
+<div class="day-card weekend">
+  <div class="day-head">
+    <h3>Day 7 — Sunday · API client retries &amp; error handling</h3>
+    <span class="day-time">⏱ 2.5 hr morning + 30 min recall</span>
+  </div>
+  <div class="tag-row">
+    <span class="tag tag-mod">Module 1</span>
+    <span class="tag tag-layer">API client + retry</span>
+    <span class="tag tag-skill">Resilience</span>
+  </div>
+  <ul class="pomo-list">
+    <li><span class="pomo-num">P1</span>List 6 error types · which retry · which don't</li>
+    <li><span class="pomo-num">P2</span>Exponential backoff math · jitter concept · draw graph</li>
+    <li><span class="pomo-num">P3</span>Implement @retry decorator with backoff</li>
+    <li><span class="pomo-num">P4</span>Read circuit breaker pattern · 3 states</li>
+    <li><span class="pomo-num">P5</span>Integrate retry into APIClient · run test · observe behavior</li>
+  </ul>
+  <div class="evening">
+    <p class="evening-title">🌙 Evening recall + week 1 reflection (30 min)</p>
+    <div class="evening-q">Q1 · What errors should retry vs not?</div>
+    <div class="evening-q">Q2 · Write retry decorator from memory</div>
+    <div class="evening-q">Q3 · Why exponential backoff + jitter?</div>
+    <div class="evening-q">Q4 · Circuit breaker — 3 states explained</div>
+  </div>
+  <div class="checkpoint">
+    🚩 <strong>Week 1 milestone:</strong> Can you explain config layer in 5 min? Can you write APIClient from scratch? Code working on your machine? If 3/4 yes → continue to week 2. If less → extend by 1 day.
+  </div>
+  <div class="outcomes">
+    <p class="outcomes-title">Outcomes</p>
+    <label><input type="checkbox"/>Retry decorator on machine</label>
+    <label><input type="checkbox"/>APIClient handles transient failures</label>
+    <label><input type="checkbox"/>Exponential backoff understood</label>
+    <label><input type="checkbox"/>Circuit breaker concept known</label>
+  </div>
+  <div class="coverage-bar-row">
+    <span>API client</span>
+    <div class="coverage-track"><div class="coverage-fill" style="width: 45%;"></div></div>
+    <span>45%</span>
+  </div>
+</div>
+
+<div class="week-banner">📅 Week 2 — API client deep + your POC mastery + mocks</div>
+
+<div class="day-card">
+  <div class="day-head">
+    <h3>Day 8 — Monday · API client + authentication</h3>
+    <span class="day-time">⏱ 2 hr morning + 30 min recall</span>
+  </div>
+  <div class="tag-row">
+    <span class="tag tag-mod">Module 1</span>
+    <span class="tag tag-layer">API client + auth</span>
+    <span class="tag tag-skill">Integration thinking</span>
+  </div>
+  <ul class="pomo-list">
+    <li><span class="pomo-num">P1</span>Auth types survey — API key · basic · bearer · OAuth 2.0</li>
+    <li><span class="pomo-num">P2</span>Add auth_token support to APIClient</li>
+    <li><span class="pomo-num">P3</span>Token refresh design — pseudo-code on paper</li>
+    <li><span class="pomo-num">P4</span>Write 200-word answer "auth + API client integration"</li>
+  </ul>
+  <div class="evening">
+    <p class="evening-title">🌙 Evening recall (30 min)</p>
+    <div class="evening-q">Q1 · 4 auth types — when each is used?</div>
+    <div class="evening-q">Q2 · Show how token gets into request</div>
+    <div class="evening-q">Q3 · Token refresh — write pseudo-code</div>
+    <div class="evening-q">Q4 · Connect auth + config + retry in answer</div>
+  </div>
+  <div class="outcomes">
+    <p class="outcomes-title">Outcomes</p>
+    <label><input type="checkbox"/>APIClient supports bearer token</label>
+    <label><input type="checkbox"/>4 auth types understood</label>
+    <label><input type="checkbox"/>Token refresh pattern known</label>
+    <label><input type="checkbox"/>Can connect 3 layers in answer</label>
+  </div>
+  <div class="coverage-bar-row">
+    <span>API client</span>
+    <div class="coverage-track"><div class="coverage-fill" style="width: 65%;"></div></div>
+    <span>65%</span>
+  </div>
+</div>
+
+<div class="day-card">
+  <div class="day-head">
+    <h3>Day 9 — Tuesday · API client production polish</h3>
+    <span class="day-time">⏱ 2 hr morning + 30 min recall</span>
+  </div>
+  <div class="tag-row">
+    <span class="tag tag-mod">Module 1</span>
+    <span class="tag tag-layer">API client</span>
+    <span class="tag tag-skill">Production thinking</span>
+  </div>
+  <ul class="pomo-list">
+    <li><span class="pomo-num">P1</span>Production checklist — logging · headers · correlation IDs · pooling · SSL</li>
+    <li><span class="pomo-num">P2</span>Add request/response logging to APIClient</li>
+    <li><span class="pomo-num">P3</span>Add correlation ID (UUID per test) for distributed tracing</li>
+    <li><span class="pomo-num">P4</span>Score yourself against checklist · note 2-3 gaps</li>
+  </ul>
+  <div class="evening">
+    <p class="evening-title">🌙 Evening recall (30 min)</p>
+    <div class="evening-q">Q1 · 5 features of production-grade API client</div>
+    <div class="evening-q">Q2 · Correlation ID — what and why?</div>
+    <div class="evening-q">Q3 · Write APIClient signature from memory</div>
+    <div class="evening-q">Q4 · Trade-off: tight vs loose coupling</div>
+  </div>
+  <div class="outcomes">
+    <p class="outcomes-title">Outcomes</p>
+    <label><input type="checkbox"/>Production-grade APIClient built</label>
+    <label><input type="checkbox"/>Logging + correlation IDs working</label>
+    <label><input type="checkbox"/>Can defend production-grade choices</label>
+    <label><input type="checkbox"/>Gaps identified honestly</label>
+  </div>
+  <div class="coverage-bar-row">
+    <span>API client</span>
+    <div class="coverage-track"><div class="coverage-fill" style="width: 85%;"></div></div>
+    <span>85% ✓</span>
+  </div>
+</div>
+
+<div class="day-card">
+  <div class="day-head">
+    <h3>Day 10 — Wednesday · POC architecture mastery</h3>
+    <span class="day-time">⏱ 2 hr morning + 30 min recall</span>
+  </div>
+  <div class="tag-row">
+    <span class="tag tag-mod">Module 2</span>
+    <span class="tag tag-layer">Your POC</span>
+    <span class="tag tag-skill">Defense</span>
+  </div>
+  <ul class="pomo-list">
+    <li><span class="pomo-num">P1</span>Draw POC architecture from memory · compare with actual</li>
+    <li><span class="pomo-num">P2</span>Every component, every why — 2 sentences each</li>
+    <li><span class="pomo-num">P3</span>Practice dual-assertion in 3 ways — junior · architect · manager</li>
+    <li><span class="pomo-num">P4</span>Self-record 5-min POC walkthrough · listen back</li>
+  </ul>
+  <div class="evening">
+    <p class="evening-title">🌙 Evening recall (30 min)</p>
+    <div class="evening-q">Q1 · 3 layers — 30 sec each</div>
+    <div class="evening-q">Q2 · Dual-assertion pattern with example</div>
+    <div class="evening-q">Q3 · Why Ollama instead of OpenAI?</div>
+    <div class="evening-q">Q4 · Migration path to CloudWatch?</div>
+  </div>
+  <div class="outcomes">
+    <p class="outcomes-title">Outcomes</p>
+    <label><input type="checkbox"/>POC architecture drawn from memory</label>
+    <label><input type="checkbox"/>Every component justified</label>
+    <label><input type="checkbox"/>5-min walkthrough recorded</label>
+    <label><input type="checkbox"/>Weak spots in walkthrough noted</label>
+  </div>
+  <div class="coverage-bar-row">
+    <span>POC defense</span>
+    <div class="coverage-track"><div class="coverage-fill" style="width: 40%;"></div></div>
+    <span>40%</span>
+  </div>
+</div>
+
+<div class="day-card">
+  <div class="day-head">
+    <h3>Day 11 — Thursday · POC damage stories &amp; why-it-matters</h3>
+    <span class="day-time">⏱ 2 hr morning + 30 min recall</span>
+  </div>
+  <div class="tag-row">
+    <span class="tag tag-mod">Module 2</span>
+    <span class="tag tag-layer">POC selling</span>
+    <span class="tag tag-skill">Storytelling</span>
+  </div>
+  <ul class="pomo-list">
+    <li><span class="pomo-num">P1</span>Re-read damage scenarios · pick top 2 for interview ammo</li>
+    <li><span class="pomo-num">P2</span>Practice each story in 90 seconds — setup · twist · cost · resolution</li>
+    <li><span class="pomo-num">P3</span>Write 1-page F-Secure relevance connection</li>
+    <li><span class="pomo-num">P4</span>Memorize killer closing line · practice 5 ways to use it</li>
+  </ul>
+  <div class="evening">
+    <p class="evening-title">🌙 Evening recall (30 min)</p>
+    <div class="evening-q">Q1 · Tell credential stuffing story in 90 sec</div>
+    <div class="evening-q">Q2 · Why does silent log failure cost crores?</div>
+    <div class="evening-q">Q3 · "Why for security companies?" 2-min answer</div>
+    <div class="evening-q">Q4 · Closing line — 3 different ways</div>
+  </div>
+  <div class="outcomes">
+    <p class="outcomes-title">Outcomes</p>
+    <label><input type="checkbox"/>2 damage stories in 90 sec each</label>
+    <label><input type="checkbox"/>F-Secure connection articulated</label>
+    <label><input type="checkbox"/>Closing line memorized</label>
+    <label><input type="checkbox"/>Storytelling confidence built</label>
+  </div>
+  <div class="coverage-bar-row">
+    <span>POC defense</span>
+    <div class="coverage-track"><div class="coverage-fill" style="width: 70%;"></div></div>
+    <span>70%</span>
+  </div>
+</div>
+
+<div class="day-card">
+  <div class="day-head">
+    <h3>Day 12 — Friday · POC migration &amp; scale</h3>
+    <span class="day-time">⏱ 2 hr morning + 30 min recall</span>
+  </div>
+  <div class="tag-row">
+    <span class="tag tag-mod">Module 2+3</span>
+    <span class="tag tag-layer">Production + scale</span>
+    <span class="tag tag-skill">System thinking</span>
+  </div>
+  <ul class="pomo-list">
+    <li><span class="pomo-num">P1</span>Draw migration path — file → CloudWatch · Ollama → Claude API</li>
+    <li><span class="pomo-num">P2</span>Scale considerations — 10K tests/day · TB logs · cost</li>
+    <li><span class="pomo-num">P3</span>Failure mode analysis — Juice Shop · Ollama · log file · hook crashes</li>
+    <li><span class="pomo-num">P4</span>Prepare 30-sec answers — scale · eval · weakness · production</li>
+  </ul>
+  <div class="evening">
+    <p class="evening-title">🌙 Evening recall (30 min)</p>
+    <div class="evening-q">Q1 · Migration path — 3 changes for production</div>
+    <div class="evening-q">Q2 · Biggest weakness in your POC?</div>
+    <div class="evening-q">Q3 · How handle Ollama being down?</div>
+    <div class="evening-q">Q4 · Scale to 1000 services — high-level</div>
+  </div>
+  <div class="outcomes">
+    <p class="outcomes-title">Outcomes</p>
+    <label><input type="checkbox"/>Migration path documented</label>
+    <label><input type="checkbox"/>Failure modes analyzed</label>
+    <label><input type="checkbox"/>Honest about weaknesses</label>
+    <label><input type="checkbox"/>Scale-thinking demonstrated</label>
+  </div>
+  <div class="coverage-bar-row">
+    <span>POC defense</span>
+    <div class="coverage-track"><div class="coverage-fill" style="width: 90%;"></div></div>
+    <span>90% ✓</span>
+  </div>
+</div>
+
+<div class="day-card weekend">
+  <div class="day-head">
+    <h3>Day 13 — Saturday · Full mock interview simulation</h3>
+    <span class="day-time">⏱ 2.5 hr morning + 30 min recall</span>
+  </div>
+  <div class="tag-row">
+    <span class="tag tag-mod">All modules</span>
+    <span class="tag tag-layer">Consolidation</span>
+    <span class="tag tag-skill">Interview simulation</span>
+  </div>
+  <ul class="pomo-list">
+    <li><span class="pomo-num">P1</span>Prepare 7-question interview list · full mock setup</li>
+    <li><span class="pomo-num">P2</span>Mock round 1 · record · don't pause to think</li>
+    <li><span class="pomo-num">P3</span>Self-critique · time · clarity · filler words · missed points</li>
+    <li><span class="pomo-num">P4</span>Mock round 2 · re-record 3 weakest answers</li>
+    <li><span class="pomo-num">P5</span>Write 1-page gap analysis · strong vs weak areas</li>
+  </ul>
+  <div class="evening">
+    <p class="evening-title">🌙 Evening reflection (30 min)</p>
+    <div class="evening-q">Q1 · Out of 7 questions, top 3 strongest? Why?</div>
+    <div class="evening-q">Q2 · Weakest 2? What to fix?</div>
+    <div class="evening-q">Q3 · Overall mock confidence /10</div>
+    <div class="evening-q">Q4 · What does next cycle need?</div>
+  </div>
+  <div class="outcomes">
+    <p class="outcomes-title">Outcomes</p>
+    <label><input type="checkbox"/>2 mock recordings done</label>
+    <label><input type="checkbox"/>Self-critique written</label>
+    <label><input type="checkbox"/>Gap analysis honest &amp; clear</label>
+    <label><input type="checkbox"/>Know exactly what to focus on next</label>
+  </div>
+</div>
+
+<div class="day-card weekend">
+  <div class="day-head">
+    <h3>Day 14 — Sunday · Cycle review + plan ahead</h3>
+    <span class="day-time">⏱ 2.5 hr morning + 30 min recall</span>
+  </div>
+  <div class="tag-row">
+    <span class="tag tag-mod">Meta</span>
+    <span class="tag tag-layer">Review + plan</span>
+    <span class="tag tag-skill">Sustainable discipline</span>
+  </div>
+  <ul class="pomo-list">
+    <li><span class="pomo-num">P1</span>Re-read all morning essays · look at diagrams · listen to best mock</li>
+    <li><span class="pomo-num">P2</span>Quick confidence test — 5 topics in 60 sec each · self-rate</li>
+    <li><span class="pomo-num">P3</span>Identify next cycle focus from 4 options</li>
+    <li><span class="pomo-num">P4</span>Plan cycle 2 · 14 days · save as cycle_2_plan.md</li>
+    <li><span class="pomo-num">P5</span>Celebrate + rest · write before/after reflection</li>
+  </ul>
+  <div class="evening">
+    <p class="evening-title">🌙 Final reflection (30 min)</p>
+    <div class="evening-q">Q1 · Before vs after — what's changed in 2 weeks?</div>
+    <div class="evening-q">Q2 · If interview tomorrow, how prepared? %</div>
+    <div class="evening-q">Q3 · One thing you'd do differently</div>
+    <div class="evening-q">Q4 · One thing that worked — keep doing</div>
+  </div>
+  <div class="outcomes">
+    <p class="outcomes-title">Outcomes</p>
+    <label><input type="checkbox"/>Cycle 1 complete</label>
+    <label><input type="checkbox"/>Honest self-assessment done</label>
+    <label><input type="checkbox"/>Cycle 2 plan ready</label>
+    <label><input type="checkbox"/>Visible growth measured</label>
+  </div>
+</div>
+
+<h2>Original vs revised — what changed</h2>
+<table class="compare-table">
+  <tr><th>Aspect</th><th>Original plan</th><th>Revised plan</th><th>Why</th></tr>
+  <tr><td>Time per day</td><td>30-45 min</td><td>2.5 hr (incl recall)</td><td>You asked for deeper investment</td></tr>
+  <tr><td>Layers covered</td><td>14 (surface)</td><td>2 deep + POC + intro to 3rd</td><td>Interview drills 1 layer for 30 min — depth wins</td></tr>
+  <tr><td>Coverage in 14 days</td><td>~100% surface</td><td>~32% deep</td><td>True mastery requires repetition</td></tr>
+  <tr><td>Active production</td><td>Mixed</td><td>Daily — write, code, teach</td><td>Reading retention is 5-10%, building is 75-85%</td></tr>
+  <tr><td>Recall mechanism</td><td>None</td><td>Daily evening session</td><td>Fights forgetting curve directly</td></tr>
+  <tr><td>Mock interviews</td><td>End only</td><td>Days 5, 10, 13</td><td>Identify gaps mid-cycle, not at end</td></tr>
+  <tr><td>Total cycles needed</td><td>1</td><td>~8 cycles (4 months)</td><td>Realistic timeline for true senior readiness</td></tr>
+</table>
+
+<div class="dashboard-section">
+  <h2 class="dashboard-title">📊 Roadmap coverage dashboard — end of cycle 1</h2>
+
+  <div class="module-row">
+    <span class="module-name">Module 1 — Config layer</span>
+    <div class="module-bar"><div class="module-fill high" style="width: 85%;"></div></div>
+    <span class="module-pct">85%</span>
+    <span class="module-status status-done">Mastered</span>
+  </div>
+
+  <div class="module-row">
+    <span class="module-name">Module 1 — API client</span>
+    <div class="module-bar"><div class="module-fill high" style="width: 85%;"></div></div>
+    <span class="module-pct">85%</span>
+    <span class="module-status status-done">Mastered</span>
+  </div>
+
+  <div class="module-row">
+    <span class="module-name">Module 1 — Auth module</span>
+    <div class="module-bar"><div class="module-fill low" style="width: 15%;"></div></div>
+    <span class="module-pct">15%</span>
+    <span class="module-status status-touched">Intro</span>
+  </div>
+
+  <div class="module-row">
+    <span class="module-name">Module 1 — Retry engine</span>
+    <div class="module-bar"><div class="module-fill mid" style="width: 30%;"></div></div>
+    <span class="module-pct">30%</span>
+    <span class="module-status status-progress">Started</span>
+  </div>
+
+  <div class="module-row">
+    <span class="module-name">Module 1 — Request builders</span>
+    <div class="module-bar"><div class="module-fill none" style="width: 0%;"></div></div>
+    <span class="module-pct">0%</span>
+    <span class="module-status status-pending">Pending</span>
+  </div>
+
+  <div class="module-row">
+    <span class="module-name">Module 1 — Validation engine</span>
+    <div class="module-bar"><div class="module-fill none" style="width: 0%;"></div></div>
+    <span class="module-pct">0%</span>
+    <span class="module-status status-pending">Pending</span>
+  </div>
+
+  <div class="module-row">
+    <span class="module-name">Module 1 — DB · Kafka · Reporting</span>
+    <div class="module-bar"><div class="module-fill none" style="width: 0%;"></div></div>
+    <span class="module-pct">0%</span>
+    <span class="module-status status-pending">Pending</span>
+  </div>
+
+  <div class="module-row">
+    <span class="module-name">Module 1 — Logging · test data · monitoring</span>
+    <div class="module-bar"><div class="module-fill none" style="width: 0%;"></div></div>
+    <span class="module-pct">0%</span>
+    <span class="module-status status-pending">Pending</span>
+  </div>
+
+  <div class="module-row">
+    <span class="module-name">Module 1 — CI/CD · AI validation</span>
+    <div class="module-bar"><div class="module-fill none" style="width: 0%;"></div></div>
+    <span class="module-pct">0%</span>
+    <span class="module-status status-pending">Pending</span>
+  </div>
+
+  <div class="module-row">
+    <span class="module-name">Module 2 — Your POC defense</span>
+    <div class="module-bar"><div class="module-fill high" style="width: 90%;"></div></div>
+    <span class="module-pct">90%</span>
+    <span class="module-status status-done">Mastered</span>
+  </div>
+
+  <div class="module-row">
+    <span class="module-name">Module 3 — System design</span>
+    <div class="module-bar"><div class="module-fill low" style="width: 5%;"></div></div>
+    <span class="module-pct">5%</span>
+    <span class="module-status status-touched">Intro</span>
+  </div>
+
+  <div class="module-row">
+    <span class="module-name">Module 4 — AI in testing</span>
+    <div class="module-bar"><div class="module-fill mid" style="width: 30%;"></div></div>
+    <span class="module-pct">30%</span>
+    <span class="module-status status-progress">Started</span>
+  </div>
+
+  <div class="module-row">
+    <span class="module-name">Module 5 — Python coding round</span>
+    <div class="module-bar"><div class="module-fill none" style="width: 0%;"></div></div>
+    <span class="module-pct">0%</span>
+    <span class="module-status status-pending">Pending</span>
+  </div>
+
+  <div class="module-row">
+    <span class="module-name">Module 6 — Behavioural · leadership</span>
+    <div class="module-bar"><div class="module-fill none" style="width: 0%;"></div></div>
+    <span class="module-pct">0%</span>
+    <span class="module-status status-pending">Pending</span>
+  </div>
+
+  <div class="stats-grid" style="margin-top: 1.5rem;">
+    <div class="stat-card"><p class="stat-label">Overall roadmap</p><p class="stat-val">~32%</p></div>
+    <div class="stat-card"><p class="stat-label">Interview ready</p><p class="stat-val">~35%</p></div>
+    <div class="stat-card"><p class="stat-label">Cycles done</p><p class="stat-val">1 / 8</p></div>
+    <div class="stat-card"><p class="stat-label">Time to full mastery</p><p class="stat-val">~4 mo</p></div>
+  </div>
+
+  <div class="next-cycle">
+    <p class="next-cycle-title">→ Recommended cycle 2 focus</p>
+    Authentication module deep dive (4 days) + request builders (3 days) + validation engine (4 days) + 3 days for POC integration &amp; mocks. Same 2.5 hr daily structure.
+  </div>
+</div>
+
+<h2>10 rules to print on the wall</h2>
+<div class="rules-grid">
+  <div class="rule"><span class="rule-num">1</span>Morning slot is sacred — phone off, no Slack, no email</div>
+  <div class="rule"><span class="rule-num">2</span>Pomodoro is real — 25 min focus, 5 min break, no negotiations</div>
+  <div class="rule"><span class="rule-num">3</span>Evening recall is non-negotiable — even 20 min better than 0</div>
+  <div class="rule"><span class="rule-num">4</span>No scrolling up during recall — that's cheating yourself</div>
+  <div class="rule"><span class="rule-num">5</span>Self-rating must be honest — fake confidence kills interviews</div>
+  <div class="rule"><span class="rule-num">6</span>Hands on keyboard &gt; eyes on screen — produce, don't just consume</div>
+  <div class="rule"><span class="rule-num">7</span>Stuck &gt;15 min? Write down the confusion, ask Claude tomorrow</div>
+  <div class="rule"><span class="rule-num">8</span>Saturday/Sunday morning gets extra 30 min — use for harder topics</div>
+  <div class="rule"><span class="rule-num">9</span>Skip a day = repeat it. Don't double up, that breaks rhythm</div>
+  <div class="rule"><span class="rule-num">10</span>2-week cycles, not 2-day pushes — sustainable forever</div>
+</div>
+
+</body>
+</html>
